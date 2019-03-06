@@ -1,4 +1,4 @@
-# MovieApp
+## 电影资讯
 
 电影资讯App是一个纯练手项目，使用了系统API28，全部是基于Androidx包下的。  
 使用Kotlin语言开发，使用了Android JetPack中的LiveData、ViewModel以及Room。  
