@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    tools:ignore="RtlHardcoded">
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="@dimen/yy"
+        android:layout_marginTop="@dimen/xx"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLength="5"
+        android:paddingLeft="@dimen/x"
+        android:paddingTop="@dimen/yy"
+        android:text="懒人"
+        android:textColor="@color/color_blue"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/pubdates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x"
+        android:paddingTop="@dimen/yy"
+        android:text="2019-01-01"
+        app:layout_constraintLeft_toRightOf="@+id/name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/useful"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/yy"
+        android:paddingRight="@dimen/xx"
+        android:text="有用"
+        android:textColor="@color/color_blue"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/useful_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/yy"
+        android:paddingRight="@dimen/x_half"
+        android:text="100"
+        android:textColor="@color/color_blue"
+        app:layout_constraintRight_toLeftOf="@+id/useful"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.steven.movieapp.widget.CollapsibleTextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/xx"
+        android:paddingTop="@dimen/y"
+        android:paddingRight="@dimen/xx"
+        android:paddingBottom="@dimen/yy"
+        android:text="我喜欢我喜欢我喜欢我喜欢我喜欢我喜欢"
+        android:textColor="@color/color_black"
+        app:collapsedLines="3"
+        app:collapsedText="【展开】"
+        app:expandedText="【收起】"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:suffixColor="@color/color_blue" />
+
+    <!--<TextView-->
+    <!--android:paddingTop="@dimen/y_half"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/content"-->
+    <!--android:id="@+id/show"-->
+    <!--android:text="【展开】"-->
+    <!--android:textColor="@color/color_blue"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"/>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_down"-->
+    <!--android:src="@mipmap/ic_down"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/show"-->
+    <!--android:layout_width="20dp"-->
+    <!--android:layout_height="20dp"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

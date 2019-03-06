@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">电影资讯</string>
+
+    <string-array name="tab_movies">
+        <item>正在热映</item>
+        <item>即将上映</item>
+        <item>口碑榜</item>
+        <item>北美票房榜</item>
+        <item>新片榜</item>
+        <item>Top250</item>
+    </string-array>
+
+    <string name="app">一款电影资讯app</string>
+    <string name="about_app">关于应用</string>
+
+    <string name="fab_translation_behavior">com.steven.movieapp.widget.behavior.TranslationBehavior</string>
+
+    <string name="transition_movie_image">transition_movie_image</string>
+
+    <string name="about_app_content">
+        电影资讯App是一个练手项目，使用了系统API28，全部是基于Androidx包下的。
+        使用Kotlin语言开发，使用了Android JetPack中的LiveData、ViewModel以及Room。
+        为了学习Kotlin和巩固自定义View和ViewGroup，这个项目是尽量少应用依赖第三方库。
+    </string>
+    <string name="about_api">
+        API来源：https://api.douban.com/v2/movie\nhttps://www.jianshu.com/p/a7e51129b042\ngithub地址：https://github.com/
+    </string>
+    <string name="about_tips">
+        豆瓣电影API目前是不公开的，小编是在简书上看到有人公开了访问豆瓣电影的API_KEY，
+        如果有侵犯，请联系删除！
+    </string>
+    <string name="about_me">
+        喜欢码码字和码码代码的小小编，这是我的公众号！
+    </string>
+</resources>

@@ -1,0 +1,20 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="font_big">18sp</dimen>
+    <dimen name="font_middle">16sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+
+    <dimen name="x_half">4dp</dimen>
+    <dimen name="x">8dp</dimen>
+    <dimen name="xx">16dp</dimen>
+    <dimen name="xxx">24dp</dimen>
+    <dimen name="xxxx">32dp</dimen>
+
+    <dimen name="y_half">4dp</dimen>
+    <dimen name="y">8dp</dimen>
+    <dimen name="yy">16dp</dimen>
+    <dimen name="yyy">24dp</dimen>
+    <dimen name="yyyy">32dp</dimen>
+
+    <dimen name="app_bar_height">240dp</dimen>
+</resources>

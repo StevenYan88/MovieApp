@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:gravity="center_vertical"
+              android:layout_height="match_parent">
+
+
+    <TextView
+            android:drawableRight="@mipmap/ic_right"
+            android:padding="@dimen/x"
+            android:layout_gravity="center_vertical|right"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/font_middle"
+            android:text="查看更多"
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="RtlSymmetry,RtlHardcoded,ContentDescription,MissingConstraints">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:stateListAnimator="@animator/item_touch_raise"
+        app:cardCornerRadius="@dimen/x_half"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_movie"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/colorPrimary"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/x"
+                android:paddingTop="@dimen/y_half"
+                android:text="大黄蜂"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/font_big"
+                app:layout_constraintTop_toBottomOf="@+id/iv_movie" />
+
+            <TextView
+                android:id="@+id/genres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/x"
+                android:paddingTop="2dp"
+                android:text="类型：动作/科幻"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+
+            <TextView
+                android:id="@+id/pubdates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/x"
+                android:paddingTop="2dp"
+                android:text="上映日期：2019-01-08"
+                app:layout_constraintTop_toBottomOf="@+id/genres" />
+
+            <TextView
+                android:id="@+id/durations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/x"
+                android:paddingTop="2dp"
+                android:paddingBottom="@dimen/y"
+                android:text="片长：132分钟"
+                app:layout_constraintTop_toBottomOf="@+id/pubdates" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

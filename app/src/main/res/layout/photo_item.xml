@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="@dimen/x_half"
+        android:layout_margin="2dp"
+        app:cardPreventCornerOverlap="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <ImageView
+            android:src="@mipmap/ic_movie_default"
+            android:id="@+id/iv_actor"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="136dp"/>
+</androidx.cardview.widget.CardView>

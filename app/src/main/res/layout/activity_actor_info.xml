@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ActorInfoActivity"
+    tools:ignore="RtlHardcoded">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.5">
+
+
+                    <com.steven.movieapp.widget.RoundCornerImageView
+                        android:id="@+id/iv_actor"
+                        android:layout_width="120dp"
+                        android:layout_height="150dp"
+                        android:layout_marginLeft="@dimen/xx"
+                        android:layout_marginTop="56dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_movie_default"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:radius="@dimen/x_half" />
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:paddingTop="2dp"
+                        android:text="性别：男"
+                        android:textColor="@color/color_white"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_actor"
+                        app:layout_constraintTop_toTopOf="@+id/iv_actor" />
+
+                    <TextView
+                        android:id="@+id/constellation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:paddingTop="2dp"
+                        android:text="星座：处女座"
+                        android:textColor="@color/color_white"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_actor"
+                        app:layout_constraintTop_toBottomOf="@+id/gender" />
+
+                    <TextView
+                        android:id="@+id/birthday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:paddingTop="2dp"
+                        android:text="出生日期：1981-01-01"
+                        android:textColor="@color/color_white"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_actor"
+                        app:layout_constraintTop_toBottomOf="@+id/constellation" />
+
+                    <TextView
+                        android:id="@+id/born_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:paddingTop="2dp"
+                        android:text="出身地：美国"
+                        android:textColor="@color/color_white"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_actor"
+                        app:layout_constraintTop_toBottomOf="@+id/birthday" />
+
+
+                    <TextView
+                        android:id="@+id/professions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:paddingTop="2dp"
+                        android:text="职业：演员"
+                        android:textColor="@color/color_white"
+                        app:layout_constraintLeft_toRightOf="@+id/iv_actor"
+                        app:layout_constraintTop_toBottomOf="@+id/born_place" />
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:contentInsetStartWithNavigation="0dp"
+                        app:layout_collapseMode="pin"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/actor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/left_line"
+                    android:drawablePadding="4dp"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/x"
+                    android:text="影人简介....."
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/font_middle"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.steven.movieapp.widget.CollapsibleTextView
+                    android:id="@+id/actor_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="8dp"
+                    android:textColor="@color/color_black"
+                    app:collapsedLines="6"
+                    app:collapsedText="【展开】"
+                    app:expandedText="【收起】"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/actor"
+                    app:suffixColor="@color/color_blue" />
+
+
+                <TextView
+                    android:id="@+id/tv_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/left_line"
+                    android:drawablePadding="4dp"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/x"
+                    android:text="影人剧照"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/font_middle"
+                    app:layout_constraintTop_toBottomOf="@+id/actor_summary" />
+
+
+                <com.steven.movieapp.widget.refreshLoad.WrapRecyclerView
+                    android:id="@+id/rv_photos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_photos" />
+
+
+                <TextView
+                    android:id="@+id/works"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/left_line"
+                    android:drawablePadding="4dp"
+                    android:lineSpacingExtra="2dp"
+                    android:padding="@dimen/x"
+                    android:text="最近作品"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/font_middle"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_photos" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_works"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/works" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:fabCustomSize="48dp"
+            app:layout_anchor="@id/app_bar"
+            app:layout_anchorGravity="bottom|end"
+            app:srcCompat="@mipmap/ic_share" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <include layout="@layout/load_view" />
+</RelativeLayout>
+
+
+
+

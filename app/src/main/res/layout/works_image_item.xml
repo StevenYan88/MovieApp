@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/x">
+
+    <TextView
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/x_half"
+        android:text="2018"
+        android:textColor="@color/color_black" />
+
+
+    <com.steven.movieapp.widget.RoundCornerImageView
+        android:id="@+id/iv_actor"
+        android:layout_width="120dp"
+        android:layout_height="136dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_movie_default"
+        app:radius="@dimen/x_half" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/x_half"
+        android:text="迪伦·奥布莱恩"
+        android:textColor="@color/color_black" />
+
+
+</LinearLayout>
