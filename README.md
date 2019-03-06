@@ -8,7 +8,7 @@ Api来自豆瓣电影，豆瓣电影Api目前是不公开的，小编是在简�
 
 
 
-###app主要设计到知识点：
+### app主要设计到知识点：
 
     使用Kotlin开发，大家想学习和巩固Kotlin，可以参考这个App；
     手写一个LiveDataCallAdapterFactory适配器；
