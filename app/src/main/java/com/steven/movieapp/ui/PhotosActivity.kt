@@ -3,9 +3,9 @@ package com.steven.movieapp.ui
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.steven.movieapp.R
-import com.steven.movieapp.adapter.ActorPhotosAdapter
+import com.steven.movieapp.adapter.PhotosAdapter
 import com.steven.movieapp.base.BaseActivity
 import com.steven.movieapp.model.Photo
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
@@ -30,8 +30,8 @@ class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, Lo
 
     private var photos = arrayListOf<Photo>()
 
-    private val adapter: ActorPhotosAdapter by lazy {
-        ActorPhotosAdapter(this, R.layout.photo_item, photos)
+    private val adapter: PhotosAdapter by lazy {
+        PhotosAdapter(this, R.layout.photo_item, photos)
     }
 
 
@@ -39,7 +39,13 @@ class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, Lo
 
     override fun initView() {
         supportActionBar?.apply { title = name }
-        rv_photos.layoutManager = GridLayoutManager(this, 3)
+        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        //参考博客：https://blog.csdn.net/windows771053651/article/details/51596744
+        //解决RecyclerView StaggeredGridLayoutManage布局管理器滑动到顶部时仍会出现移动问题
+        //RecyclerView滑动过程中不断请求layout的Request，不断调整item见的间隙，
+        // 并且是在item尺寸显示前预处理，因此解决RecyclerView滑动到顶部时仍会出现移动问题
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
+        rv_photos.layoutManager = layoutManager
         rv_photos.addLoadViewCreator(DefaultLoadViewCreator())
         rv_photos.addRefreshViewCreator(DefaultRefreshViewCreator())
         rv_photos.addLoadingView(load_view)

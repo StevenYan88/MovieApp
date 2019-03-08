@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 /**
  * Description:
@@ -111,6 +112,9 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
         notifyDataSetChanged()
     }
 
+    /**
+     * 解决GridLayoutManager header和footer显示整行
+     */
     fun adjustSpanSize(recyclerView: RecyclerView) {
         if (recyclerView.layoutManager is GridLayoutManager) {
             val layoutManager = recyclerView.layoutManager as GridLayoutManager
@@ -121,6 +125,19 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
                 }
             }
         }
+    }
+
+    /**
+     * 当RecyclerView在windows活动时获取StaggeredGridLayoutManager布局管理器，修正header和footer显示整行
+     */
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        val layoutParams = holder.itemView.layoutParams
+        if (layoutParams is StaggeredGridLayoutManager.LayoutParams) {
+            if (isHeaderPosition(holder.layoutPosition) || isFooterPosition(holder.layoutPosition))
+                layoutParams.isFullSpan = true
+        }
+
     }
 
 }
