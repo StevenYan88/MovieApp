@@ -1,3 +1,9 @@
+
+
+
+
+
+
 ## 电影资讯
 
 电影资讯App是一个纯练手项目，使用了系统API28，全部是基于Androidx包下的。  
@@ -5,6 +11,9 @@
 为了学习Kotlin和巩固自定义View和ViewGroup，这个项目是尽量少应用依赖第三方库。  
 Api来自豆瓣电影，豆瓣电影Api目前是不公开的，小编是在简书上看到有人公开了访问豆瓣电影的Api的API_KEY，
 如果有侵犯，请联系删除！
+
+### 项目截图
+![3.jpg](https://upload-images.jianshu.io/upload_images/1472453-d48c037a7e1375de.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
