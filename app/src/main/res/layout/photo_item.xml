@@ -12,7 +12,6 @@
 
 
     <ImageView
-            android:src="@mipmap/ic_movie_default"
             android:id="@+id/iv_actor"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
