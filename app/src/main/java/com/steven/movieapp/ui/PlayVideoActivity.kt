@@ -2,6 +2,7 @@ package com.steven.movieapp.ui
 
 import android.media.MediaPlayer
 import android.net.Uri
+import android.view.MotionEvent
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
@@ -52,21 +53,12 @@ class PlayVideoActivity : BaseActivity() {
             video.post(mShowProgress)
             mp.start()
         }
-
         iv_play.setOnClickListener {
             doPauseResume()
         }
 
-        video.setOnClickListener {
-            if (mShowing) {
-                hide()
-            } else {
-                show(defaultTimeout)
-            }
-        }
-
         iv_next.setOnClickListener {
-            Toast.makeText(this, "小小编正在开发中...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "小编君正在开发中...", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -82,10 +74,23 @@ class PlayVideoActivity : BaseActivity() {
 
     }
 
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> if (!mShowing) {
+                show(defaultTimeout)
+            } else {
+                show(0)
+            }
+            MotionEvent.ACTION_CANCEL -> hide()
+        }
+        return true
+    }
+
+
     private val mShowProgress = object : Runnable {
         override fun run() {
             val pos = setProgress()
-            if (!mDragging && mMediaPlayer.isPlaying) {
+            if (!mDragging && mShowing && mMediaPlayer.isPlaying) {
                 video.postDelayed(this, 1000)
             }
         }
@@ -96,26 +101,22 @@ class PlayVideoActivity : BaseActivity() {
             if (!fromUser) {
                 return
             }
-
+            show(36000)
             val duration = mMediaPlayer.duration.toLong()
-            val newPosition = duration * progress / 100L
-            mMediaPlayer.seekTo(newPosition.toInt())
+            val newPosition = progress * (duration / 100L)
             currentTime.text = stringForTime(newPosition.toInt())
+            mMediaPlayer.seekTo(newPosition.toInt())
         }
 
         override fun onStartTrackingTouch(seekBar: SeekBar?) {
             mDragging = true
-            video.removeCallbacks(mFadeOut)
             video.removeCallbacks(mShowProgress)
 
         }
 
         override fun onStopTrackingTouch(seekBar: SeekBar?) {
             mDragging = false
-            setProgress()
-            video.postDelayed(mFadeOut, defaultTimeout.toLong())
-            video.post(mShowProgress)
-
+            show(defaultTimeout)
         }
     }
 
@@ -125,27 +126,27 @@ class PlayVideoActivity : BaseActivity() {
         } else {
             iv_play.setImageResource(R.mipmap.ic_play)
         }
+        video.post(mShowProgress)
+
     }
 
     private fun show(timeOut: Int) {
         mShowing = true
+        video_navigation_bar.animate().translationY(0f).setDuration(300).start()
+        video_controller.animate().translationY(0f).setDuration(300).start()
         video.postDelayed(mFadeOut, timeOut.toLong())
-        video_navigation_bar.animate().translationY(0f).setDuration(500).start()
-        video_controller.animate().translationY(0f).setDuration(500).start()
+        video.post(mShowProgress)
+
     }
 
     private fun hide() {
         mShowing = false
-        video.removeCallbacks(mFadeOut)
-        video_navigation_bar.animate().translationY(-mVideoBarHeight.toFloat()).setDuration(500).start()
-        video_controller.animate().translationY(mVideoControllerHeight.toFloat()).setDuration(500).start()
-
+        video_navigation_bar.animate().translationY(-mVideoBarHeight.toFloat()).setDuration(300).start()
+        video_controller.animate().translationY(mVideoControllerHeight.toFloat()).setDuration(300).start()
     }
 
     private val mFadeOut = Runnable {
-        mShowing = false
-        video_navigation_bar.animate().translationY(-mVideoBarHeight.toFloat()).setDuration(500).start()
-        video_controller.animate().translationY(mVideoControllerHeight.toFloat()).setDuration(500).start()
+        hide()
     }
 
     private fun setProgress(): Int {
@@ -167,6 +168,7 @@ class PlayVideoActivity : BaseActivity() {
             mMediaPlayer.start()
         }
         updatePausePlay()
+
     }
 
     override fun onDestroy() {

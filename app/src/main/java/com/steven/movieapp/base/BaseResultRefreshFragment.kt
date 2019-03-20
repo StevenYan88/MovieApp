@@ -7,7 +7,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.howshea.basemodule.component.fragment.LazyFragment
 import com.steven.movieapp.R
 import com.steven.movieapp.adapter.MovieAdapter
@@ -18,13 +17,13 @@ import com.steven.movieapp.ui.Top250MovieFragment
 import com.steven.movieapp.viewmodel.MovieViewModel
 import com.steven.movieapp.viewmodel.MovieViewModelFactory
 import com.steven.movieapp.widget.LoopTextView
+import com.steven.movieapp.widget.StatusView
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
 import com.steven.movieapp.widget.refreshLoad.DefaultLoadViewCreator
 import com.steven.movieapp.widget.refreshLoad.DefaultRefreshViewCreator
 import com.steven.movieapp.widget.refreshLoad.LoadRefreshRecyclerView
 import com.steven.movieapp.widget.refreshLoad.RefreshRecyclerView
 import kotlinx.android.synthetic.main.fragment_base_refresh.*
-import kotlinx.android.synthetic.main.load_view.*
 
 /**
  * Description:
@@ -46,36 +45,42 @@ abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<M
         ViewModelProviders.of(this, MovieViewModelFactory()).get(MovieViewModel::class.java)
     }
 
-    protected val mBaseResultObserver: Observer<BaseResult<List<Movie>>> by lazy {
+    protected val mObserver: Observer<BaseResult<List<Movie>>> by lazy {
         Observer<BaseResult<List<Movie>>> {
-            it ?: return@Observer
+            if (it == null && movies.isEmpty()) {
+                sv.showErrorView()
+                return@Observer
+            }
+            sv.removeAllViews()
             if (movies.isEmpty()) {
                 this.movies = it.subjects as ArrayList<Movie>
                 rv_movies.adapter = adapter
+                setupLoopMovieName(it.subjects)
             } else {
                 rv_movies.onStopRefresh()
-                if (this is Top250MovieFragment) {
-                    if (it.subjects.isNotEmpty() && rv_movies.isLoading()) {
-                        movies.addAll(it.subjects)
-                        rv_movies.onStopLoad()
-                    }
+                if (this is Top250MovieFragment && it.subjects.isNotEmpty() && rv_movies.isLoading()) {
+                    movies.addAll(it.subjects)
+                    rv_movies.onStopLoad()
                 }
                 adapter.notifyDataSetChanged()
             }
             adapter.setOnItemClickListener(this)
-            setupLoopMovieName(it.subjects)
         }
     }
 
     override fun getLayoutId() = R.layout.fragment_base_refresh
 
     override fun initView() {
-        rv_movies.layoutManager = LinearLayoutManager(context)
+        sv.showLoadView()
+        sv.setOnClickListener(object : StatusView.OnClickListener {
+            override fun onClick() {
+                sv.showLoadView()
+                onRefresh()
+            }
+        })
         rv_movies.itemAnimator = DefaultItemAnimator()
         rv_movies.addRefreshViewCreator(DefaultRefreshViewCreator())
         rv_movies.setOnRefreshListener(this)
-        rv_movies.addLoadingView(load_view)
-        rv_movies.addEmptyView(empty_view)
         if (this is Top250MovieFragment) {
             rv_movies.addLoadViewCreator(DefaultLoadViewCreator())
             rv_movies.setOnLoadListener(this)

@@ -25,7 +25,6 @@ class CommentsActivity : BaseActivity() {
         fab.setOnClickListener {
             rv_more_comments.scrollToPosition(0)
         }
-        rv_more_comments.layoutManager = LinearLayoutManager(this)
         rv_more_comments.addItemDecoration(
             DividerItemDecoration(
                 this,

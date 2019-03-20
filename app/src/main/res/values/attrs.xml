@@ -4,21 +4,25 @@
 
     <declare-styleable name="CollapsibleTextView">
         <!--最大显示行数，即超过该行数的部分折叠-->
-        <attr name="collapsedLines" format="integer"/>
+        <attr name="collapsedLines" format="integer" />
         <!--折叠时的后缀文字,eg.“展开”-->
-        <attr name="collapsedText" format="string"/>
+        <attr name="collapsedText" format="string" />
         <!--展开时的后缀文字,eg.“收起”-->
-        <attr name="expandedText" format="string"/>
+        <attr name="expandedText" format="string" />
         <!--后缀文字颜色-->
-        <attr name="suffixColor" format="color"/>
+        <attr name="suffixColor" format="color" />
     </declare-styleable>
 
 
     <declare-styleable name="RoundCornerImageView">
-        <attr name="borderWidth" format="dimension"/>
-        <attr name="borderColor" format="color"/>
-        <attr name="radius" format="dimension"/>
-        <attr name="ratio"/>
+        <attr name="borderWidth" format="dimension" />
+        <attr name="borderColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="ratio" />
     </declare-styleable>
-
+    <declare-styleable name="StatusView">
+        <attr name="loadView" format="reference" />
+        <attr name="errorView" format="reference" />
+        <attr name="noNetworkView" format="reference" />
+    </declare-styleable>
 </resources>

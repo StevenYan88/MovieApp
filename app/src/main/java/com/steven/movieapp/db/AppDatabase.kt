@@ -14,7 +14,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 @Database(entities = [History::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun historyDao():HistoryDao
+    abstract fun historyDao(): HistoryDao
 
     companion object {
         private const val DATABASE_NAME = "history.db"

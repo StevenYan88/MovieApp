@@ -8,16 +8,16 @@ import com.steven.movieapp.R
 import com.steven.movieapp.adapter.PhotosAdapter
 import com.steven.movieapp.base.BaseActivity
 import com.steven.movieapp.model.Photo
+import com.steven.movieapp.widget.StatusView
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
 import com.steven.movieapp.widget.refreshLoad.DefaultLoadViewCreator
 import com.steven.movieapp.widget.refreshLoad.DefaultRefreshViewCreator
 import com.steven.movieapp.widget.refreshLoad.LoadRefreshRecyclerView
 import com.steven.movieapp.widget.refreshLoad.RefreshRecyclerView
 import kotlinx.android.synthetic.main.activity_photos.*
-import kotlinx.android.synthetic.main.load_view.*
 
 class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, LoadRefreshRecyclerView.OnLoadListener,
-    OnItemClickListener<Photo> {
+        OnItemClickListener<Photo> {
     private val celebrityId: String by lazy {
         intent.getStringExtra("celebrity_id")
     }
@@ -38,6 +38,14 @@ class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, Lo
     override fun getLayoutId(): Int = R.layout.activity_photos
 
     override fun initView() {
+
+        sv.showLoadView()
+        sv.setOnClickListener(object : StatusView.OnClickListener {
+            override fun onClick() {
+                sv.showLoadView()
+                onRefresh()
+            }
+        })
         supportActionBar?.apply { title = name }
         val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         //参考博客：https://blog.csdn.net/windows771053651/article/details/51596744
@@ -48,23 +56,25 @@ class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, Lo
         rv_photos.layoutManager = layoutManager
         rv_photos.addLoadViewCreator(DefaultLoadViewCreator())
         rv_photos.addRefreshViewCreator(DefaultRefreshViewCreator())
-        rv_photos.addLoadingView(load_view)
         rv_photos.setOnRefreshListener(this)
         rv_photos.setOnLoadListener(this)
+
 
     }
 
     override fun onRequestData() {
         movieViewModel.getCelebrityPhotos(celebrityId, start, count).observe(this, Observer {
+            if (it == null && this.photos.isEmpty()) {
+                sv.showErrorView()
+                return@Observer
+            }
+            sv.removeAllViews()
             showPhotos(it.photos)
         })
     }
 
 
     private fun showPhotos(photos: List<Photo>) {
-        if (load_view.visibility == View.VISIBLE) {
-            load_view.visibility = View.GONE
-        }
         if (this.photos.isEmpty()) {
             this.photos = photos as ArrayList<Photo>
             rv_photos.adapter = adapter

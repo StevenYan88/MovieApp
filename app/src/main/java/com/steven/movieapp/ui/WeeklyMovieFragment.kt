@@ -16,7 +16,7 @@ class WeeklyMovieFragment : BaseSubjectsRefreshFragment() {
     }
 
     override fun onRequestData() {
-        movieViewModel.getMovieWeekly().observe(this, mBaseSubjectsObserver)
+        movieViewModel.getMovieWeekly().observe(this, mObserver)
 
     }
 }

@@ -87,7 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:max="100" />
+            android:max="100"
+            android:secondaryProgressTint="@color/color_white" />
 
         <TextView
             android:id="@+id/endTime"
