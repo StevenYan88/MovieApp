@@ -44,7 +44,7 @@ class PreviewPhotosActivity : BaseActivity(), DragPhotoView.OnExitListener {
             override fun instantiateItem(container: ViewGroup, position: Int): Any {
                 val photoView = DragPhotoView(this@PreviewPhotosActivity)
                 photoView.setOnExitListener(this@PreviewPhotosActivity)
-                Glide.with(photoView).load(photos[position].image).into(photoView)
+                Glide.with(photoView).load(photos[position].image).fitCenter().into(photoView)
                 container.addView(photoView)
                 return photoView
             }

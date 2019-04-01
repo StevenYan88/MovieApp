@@ -95,12 +95,10 @@ class SearchMovieActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListene
         this.name = name
         if (this.movies.size > 0) {
             this.movies.clear()
-            rv_movies.recycledViewPool.clear()
             adapter.notifyDataSetChanged()
         }
-        if (load_view.visibility == View.GONE) {
-            load_view.visibility = View.VISIBLE
-        }
+        rv_movies.visibility = View.GONE
+        load_view.visibility = View.VISIBLE
         movieViewModel.getMovieSearchByTag(name, 0, 20).observe(this, Observer {
             showMovie(it.subjects)
         })
@@ -110,19 +108,19 @@ class SearchMovieActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListene
         if (load_view.visibility == View.VISIBLE) {
             load_view.visibility = View.GONE
         }
-        if (this.movies.isEmpty()) {
-            this.movies = movies as ArrayList<Movie>
-            if (rv_movies.adapter == null) {
-                rv_movies.adapter = adapter
-            }
+        if (rv_movies.visibility == View.GONE) {
+            rv_movies.visibility = View.VISIBLE
+        }
+        this.movies.addAll(movies)
+        if (rv_movies.adapter == null) {
+            rv_movies.adapter = adapter
         } else {
             rv_movies.onStopRefresh()
             if (rv_movies.isLoading()) {
-                this.movies.addAll(movies)
                 rv_movies.onStopLoad()
             }
+            adapter.notifyDataSetChanged()
         }
-        adapter.notifyDataSetChanged()
         adapter.setOnItemClickListener(
             object : OnItemClickListener<Movie> {
                 override fun onItemClick(view: View, position: Int, item: Movie) {
@@ -134,7 +132,7 @@ class SearchMovieActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListene
     }
 
     override fun onRefresh() {
-        showMovie(this.movies)
+        rv_movies.onStopRefresh()
     }
 
     override fun onLoad() {

@@ -28,7 +28,7 @@
     <com.wingsofts.dragphotoview.DragPhotoView
         android:id="@+id/iv_actor"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="match_parent"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -108,7 +108,6 @@ public class TagLayout extends ViewGroup {
             }
             //不断的叠加top
             top += maxHeight;
-
         }
     }
 
@@ -120,13 +119,12 @@ public class TagLayout extends ViewGroup {
             //adapter是空的话抛空指针异常
             throw new NullPointerException("adapter not null");
         }
-        if (adapter != null && mAdapterTagObserver != null) {
+        if (mAdapterTagObserver != null) {
             this.mAdapterTagObserver = null;
         }
-        if (adapter != null) {
-            mAdapterTagObserver = new AdapterTagObserver();
-            adapter.registerDataSetObserver(mAdapterTagObserver);
-        }
+        mAdapterTagObserver = new AdapterTagObserver();
+        adapter.registerDataSetObserver(mAdapterTagObserver);
+
         //清空所有子View
         removeAllViews();
         //mAdapter = null;

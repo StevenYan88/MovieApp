@@ -43,11 +43,12 @@
                     android:textSize="@dimen/font_middle"/>
 
             <TextView
+
                     android:id="@+id/search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingRight="@dimen/x"
+                    android:padding="@dimen/x"
                     android:text="搜索"
                     android:textColor="@color/color_white"
                     android:textSize="@dimen/font_middle"/>
@@ -64,18 +65,17 @@
 
     <com.steven.movieapp.widget.tag.TagLayout
             android:id="@+id/tag"
-            android:layout_marginBottom="@dimen/y"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
     <View
+            android:layout_margin="@dimen/x"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/color_line"/>
 
     <com.steven.movieapp.widget.refreshLoad.LoadRefreshRecyclerView
             android:id="@+id/rv_movies"
-            android:layout_marginTop="@dimen/y"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
