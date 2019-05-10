@@ -90,9 +90,10 @@ class StatusView : FrameLayout {
     private fun configStatusView(layoutId: Int, statusView: View) {
         if (layoutId == noNetworkViewId || layoutId == errorViewId) {
             statusView.findViewById<View>(R.id.tv_reLoad).setOnClickListener {
-                listener?.apply {
+                /*listener?.apply {
                     onClick()
-                }
+                }*/
+                listener?.onClick()
             }
         }
     }
