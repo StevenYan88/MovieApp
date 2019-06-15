@@ -34,4 +34,10 @@
     </string>
 
     <string name="search_history">搜索历史</string>
+    <string name="night_mode">夜间模式</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_subtitle">https://github.com/StevenYan88/MovieApp</string>
+
 </resources>
