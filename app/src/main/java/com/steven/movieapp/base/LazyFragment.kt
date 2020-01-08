@@ -1,4 +1,4 @@
-package com.howshea.basemodule.component.fragment
+package com.steven.movieapp.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
