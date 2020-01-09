@@ -1,4 +1,3 @@
-package com.howshea.basemodule.utils
 
 import android.content.Context
 import android.view.View
