@@ -7,7 +7,6 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
-import com.howshea.basemodule.component.fragment.LazyFragment
 import com.steven.movieapp.R
 import com.steven.movieapp.adapter.WeeklyAdapter
 import com.steven.movieapp.model.BaseSubjects

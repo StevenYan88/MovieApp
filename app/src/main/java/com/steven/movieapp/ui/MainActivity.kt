@@ -64,7 +64,6 @@ class MainActivity : BaseActivity() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
             }
-            recreate()
         }
         about_app.setOnClickListener {
 
