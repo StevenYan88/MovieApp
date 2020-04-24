@@ -12,8 +12,9 @@ import com.steven.movieapp.utils.ThemeHelper
 class MovieApp :Application(){
     override fun onCreate() {
         super.onCreate()
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
-        ThemeHelper.applyTheme(themePref)
+//        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+//        val themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
+//        ThemeHelper.applyTheme(themePref)
+        //setTheme(R.style.DarkAppTheme)
     }
 }

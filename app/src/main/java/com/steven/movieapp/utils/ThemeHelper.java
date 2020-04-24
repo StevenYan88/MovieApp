@@ -37,10 +37,7 @@ public class ThemeHelper {
                 break;
             }
             default: {
-                if (BuildCompat.isAtLeastQ()) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                } else {
-                }
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;
             }
         }

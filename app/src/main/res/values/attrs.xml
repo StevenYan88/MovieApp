@@ -25,4 +25,7 @@
         <attr name="errorView" format="reference" />
         <attr name="noNetworkView" format="reference" />
     </declare-styleable>
+
+    <attr name="textColor" format="color"/>
+    <attr name="itemBackgroundColor" format="color"/>
 </resources>
