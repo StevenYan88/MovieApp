@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.steven.movieapp.R
 import com.steven.movieapp.adapter.PhotosAdapter
 import com.steven.movieapp.base.BaseActivity
-import com.steven.movieapp.model.Photo
+import com.steven.movieapp.bean.Photo
 import com.steven.movieapp.widget.StatusView
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
 import com.steven.movieapp.widget.refreshLoad.DefaultLoadViewCreator

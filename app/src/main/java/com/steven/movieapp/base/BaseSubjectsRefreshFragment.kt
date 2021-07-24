@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.steven.movieapp.R
 import com.steven.movieapp.adapter.WeeklyAdapter
-import com.steven.movieapp.model.BaseSubjects
-import com.steven.movieapp.model.Weekly
+import com.steven.movieapp.bean.BaseSubjects
+import com.steven.movieapp.bean.Weekly
 import com.steven.movieapp.ui.MovieInfoActivity
 import com.steven.movieapp.viewmodel.MovieViewModel
 import com.steven.movieapp.viewmodel.MovieViewModelFactory
@@ -31,11 +31,10 @@ abstract class BaseSubjectsRefreshFragment : LazyFragment(), OnItemClickListener
     private var movies = arrayListOf<Weekly>()
 
     private val adapter: WeeklyAdapter by lazy {
-        WeeklyAdapter(activity!!, R.layout.movie_list_item, movies)
+        WeeklyAdapter(requireContext(), R.layout.movie_list_item, movies)
     }
     protected val movieViewModel: MovieViewModel by lazy {
         ViewModelProviders.of(this, MovieViewModelFactory()).get(MovieViewModel::class.java)
-
     }
 
     protected val mObserver: Observer<BaseSubjects<Weekly>> by lazy {
@@ -78,7 +77,7 @@ abstract class BaseSubjectsRefreshFragment : LazyFragment(), OnItemClickListener
         val v = view.findViewById<ImageView>(R.id.iv_movie)
         val options =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        activity!!,
+                        requireActivity(),
                         v, getString(R.string.transition_movie_image)
                 )
         startActivity(intent, options.toBundle())

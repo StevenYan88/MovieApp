@@ -14,7 +14,7 @@ import android.view.WindowManager
  * Data：2/27/2019-3:40 PM
  * @author yanzhiwen
  */
-class StatusBarUtil {
+class StatusBarUtils {
     companion object {
         /**
          * 设置状态栏的颜色

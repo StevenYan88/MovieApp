@@ -1,4 +1,4 @@
-package com.steven.movieapp
+package com.steven.movieapp.utils
 
 /**
  * Description:

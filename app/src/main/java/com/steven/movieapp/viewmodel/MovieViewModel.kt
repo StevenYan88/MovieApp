@@ -2,9 +2,10 @@ package com.steven.movieapp.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.steven.movieapp.API_KEY
+import com.steven.movieapp.utils.API_KEY
 import com.steven.movieapp.api.RetrofitClient
-import com.steven.movieapp.model.*
+import com.steven.movieapp.bean.*
+import com.steven.movieapp.repository.MoiveRepository
 
 /**
  * Description:
@@ -53,26 +54,34 @@ class MovieViewModel : ViewModel() {
      * 电影信息
      */
     fun getMovieInfo(movieId: String): LiveData<MovieInfo> =
-        RetrofitClient.serviceApi.getMovieInfo(movieId, API_KEY)
+        RetrofitClient.serviceApi.getMovieInfo(movieId,
+            API_KEY
+        )
 
     /**
      * 热评
      */
     fun getComments(movieId: String): LiveData<Comments> =
-        RetrofitClient.serviceApi.getComments(movieId, API_KEY)
+        RetrofitClient.serviceApi.getComments(movieId,
+            API_KEY
+        )
 
 
     /**
      * 影人
      */
     fun getCelebrity(celebrityId: String): LiveData<ActorInfo> =
-        RetrofitClient.serviceApi.getCelebrity(celebrityId, API_KEY)
+        RetrofitClient.serviceApi.getCelebrity(celebrityId,
+            API_KEY
+        )
 
     /**
      * 影人剧照
      */
     fun getCelebrityPhotos(celebrityId: String, start: Int, count: Int): LiveData<Photos> =
-        RetrofitClient.serviceApi.getCelebrityPhotos(celebrityId, start, count, API_KEY)
+        RetrofitClient.serviceApi.getCelebrityPhotos(celebrityId, start, count,
+            API_KEY
+        )
 
     /**
      * 搜索影片
@@ -82,5 +91,6 @@ class MovieViewModel : ViewModel() {
         start: Int,
         count: Int
     ): LiveData<BaseResult<List<Movie>>> =
-        RetrofitClient.serviceApi.getMovieSearchByTag(tag, API_KEY, start, count)
+        RetrofitClient.serviceApi.getMovieSearchByTag(tag,
+            API_KEY, start, count)
 }

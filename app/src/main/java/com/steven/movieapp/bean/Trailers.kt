@@ -1,4 +1,4 @@
-package com.steven.movieapp.model
+package com.steven.movieapp.bean
 
 /**
  * Description:预告片

@@ -2,7 +2,7 @@ package com.steven.movieapp.adapter
 
 import android.content.Context
 import com.steven.movieapp.R
-import com.steven.movieapp.model.Photo
+import com.steven.movieapp.bean.Photo
 import com.steven.movieapp.widget.recyclerview.BaseRecyclerAdapter
 import com.steven.movieapp.widget.recyclerview.BaseViewHolder
 

@@ -1,4 +1,4 @@
-package com.steven.movieapp.utils
+package com.steven.movieapp.viewmodel
 
 import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
@@ -31,6 +31,8 @@ class LiveDataCallAdapterFactory : Factory() {
         } else {
             observableType
         }
-        return LiveDataCallAdapter<Any>(responseType)
+        return LiveDataCallAdapter<Any>(
+            responseType
+        )
     }
 }

@@ -15,7 +15,7 @@ import com.steven.movieapp.R
 import com.steven.movieapp.adapter.MovieAdapter
 import com.steven.movieapp.base.BaseActivity
 import com.steven.movieapp.db.History
-import com.steven.movieapp.model.Movie
+import com.steven.movieapp.bean.Movie
 import com.steven.movieapp.utils.InjectorUtils
 import com.steven.movieapp.viewmodel.HistoryViewModel
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener

@@ -1,4 +1,4 @@
-package com.steven.movieapp.model
+package com.steven.movieapp.bean
 
 import android.os.Parcel
 import android.os.Parcelable

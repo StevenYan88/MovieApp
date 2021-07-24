@@ -9,7 +9,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.steven.movieapp.R
 import com.steven.movieapp.base.BaseActivity
-import com.steven.movieapp.utils.StatusBarUtil
+import com.steven.movieapp.utils.StatusBarUtils
 import com.wingsofts.dragphotoview.DragPhotoView
 import kotlinx.android.synthetic.main.activity_preview_photo.*
 import kotlinx.android.synthetic.main.load_view.*
@@ -28,7 +28,7 @@ class PreviewPhotoActivity : BaseActivity(), DragPhotoView.OnExitListener {
 
 
     override fun initView() {
-        StatusBarUtil.statusBarTintColor(this, ContextCompat.getColor(this, android.R.color.black))
+        StatusBarUtils.statusBarTintColor(this, ContextCompat.getColor(this, android.R.color.black))
         supportActionBar?.apply { this.title = name }
         Glide.with(this)
             .load(photoUrl)

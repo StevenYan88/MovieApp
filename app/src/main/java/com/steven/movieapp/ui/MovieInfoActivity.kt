@@ -14,7 +14,7 @@ import com.steven.movieapp.adapter.BloopersAdapter
 import com.steven.movieapp.adapter.CommentsAdapter
 import com.steven.movieapp.adapter.TrailersAdapter
 import com.steven.movieapp.base.BaseActivity
-import com.steven.movieapp.model.*
+import com.steven.movieapp.bean.*
 import com.steven.movieapp.utils.ShareUtil
 import com.steven.movieapp.utils.StringFormat
 import com.steven.movieapp.widget.recyclerview.DividerItemDecoration

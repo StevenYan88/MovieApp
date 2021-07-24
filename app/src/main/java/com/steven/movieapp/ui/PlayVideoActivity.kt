@@ -8,7 +8,7 @@ import android.widget.SeekBar
 import android.widget.Toast
 import com.steven.movieapp.R
 import com.steven.movieapp.base.BaseActivity
-import com.steven.movieapp.utils.StatusBarUtil
+import com.steven.movieapp.utils.StatusBarUtils
 import kotlinx.android.synthetic.main.activity_play_video.*
 import java.util.*
 
@@ -43,7 +43,7 @@ class PlayVideoActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_play_video
 
     override fun initView() {
-        StatusBarUtil.statusBarTranslucent(this)
+        StatusBarUtils.statusBarTranslucent(this)
         movie_name.text = this.title
         video.setVideoURI(Uri.parse(videoUrl))
         video.setOnPreparedListener { mp ->

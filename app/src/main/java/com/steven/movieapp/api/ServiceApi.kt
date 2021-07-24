@@ -1,7 +1,7 @@
 package com.steven.movieapp.api
 
 import androidx.lifecycle.LiveData
-import com.steven.movieapp.model.*
+import com.steven.movieapp.bean.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

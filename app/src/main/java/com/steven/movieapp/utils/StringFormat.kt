@@ -1,6 +1,6 @@
 package com.steven.movieapp.utils
 
-import com.steven.movieapp.model.Actor
+import com.steven.movieapp.bean.Actor
 
 /**
  * Description:

@@ -15,18 +15,17 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected val movieViewModel: MovieViewModel by lazy {
         ViewModelProviders.of(this).get(MovieViewModel::class.java)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
-        setUpActionBar()
+        setupActionBar()
         initView()
         onRequestData()
     }
 
-    private fun setUpActionBar() {
+    private fun setupActionBar() {
         toolbar?.apply {
             setSupportActionBar(this)
         }

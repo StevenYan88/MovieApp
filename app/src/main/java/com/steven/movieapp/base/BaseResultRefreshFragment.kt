@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.steven.movieapp.R
 import com.steven.movieapp.adapter.MovieAdapter
-import com.steven.movieapp.model.BaseResult
-import com.steven.movieapp.model.Movie
+import com.steven.movieapp.bean.BaseResult
+import com.steven.movieapp.bean.Movie
 import com.steven.movieapp.ui.MovieInfoActivity
 import com.steven.movieapp.ui.Top250MovieFragment
 import com.steven.movieapp.viewmodel.MovieViewModel
@@ -92,7 +92,7 @@ abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<M
         val v = view.findViewById<ImageView>(R.id.iv_movie)
         val options =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        activity!!,
+                        requireActivity(),
                         v, getString(R.string.transition_movie_image)
                 )
         startActivity(intent, options.toBundle())

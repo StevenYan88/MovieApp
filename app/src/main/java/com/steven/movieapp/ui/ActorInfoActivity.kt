@@ -12,9 +12,9 @@ import com.steven.movieapp.R
 import com.steven.movieapp.adapter.ActorPhotosAdapter
 import com.steven.movieapp.adapter.ActorWorksAdapter
 import com.steven.movieapp.base.BaseActivity
-import com.steven.movieapp.model.ActorInfo
-import com.steven.movieapp.model.Photo
-import com.steven.movieapp.model.Works
+import com.steven.movieapp.bean.ActorInfo
+import com.steven.movieapp.bean.Photo
+import com.steven.movieapp.bean.Works
 import com.steven.movieapp.utils.ShareUtil
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
 import kotlinx.android.synthetic.main.activity_actor_info.*

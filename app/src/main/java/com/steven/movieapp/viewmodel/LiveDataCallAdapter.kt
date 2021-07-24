@@ -1,6 +1,7 @@
-package com.steven.movieapp.utils
+package com.steven.movieapp.viewmodel
 
 import androidx.lifecycle.LiveData
+import com.steven.movieapp.api.ApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback
@@ -13,8 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Data：2/19/2019-2:04 PM
  * @author yanzhiwen
  */
-class LiveDataCallAdapter<R>(private val responseType: Type) :
-        CallAdapter<R, LiveData<R>> {
+class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, LiveData<R>> {
 
     override fun responseType() = responseType
 
