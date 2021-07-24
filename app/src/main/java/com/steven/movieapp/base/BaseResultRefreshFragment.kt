@@ -113,4 +113,5 @@ abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<M
             findViewById<LoopTextView>(R.id.loop_movie_name).setTextList(textList)
         }
     }
+
 }

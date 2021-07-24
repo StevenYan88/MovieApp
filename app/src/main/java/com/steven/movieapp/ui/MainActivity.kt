@@ -1,11 +1,12 @@
 package com.steven.movieapp.ui
 
 import android.content.Intent
+import android.preference.PreferenceManager
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.steven.movieapp.R
 import com.steven.movieapp.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+
 
 class MainActivity : BaseActivity() {
 
@@ -27,10 +29,14 @@ class MainActivity : BaseActivity() {
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            drawer_layout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         toggle.syncState()
 
@@ -58,12 +64,20 @@ class MainActivity : BaseActivity() {
             if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
             if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                setTheme(R.style.DarkAppTheme)
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                sharedPreferences.edit().putString("themePref",ThemeHelper.DARK_MODE).commit()
             } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                sharedPreferences.edit().putString("themePref",ThemeHelper.LIGHT_MODE).commit()
+
+                setTheme(R.style.AppTheme)
 
             }
+
+
         }
         about_app.setOnClickListener {
 

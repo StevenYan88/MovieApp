@@ -3,6 +3,7 @@ package com.steven.movieapp.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import com.steven.movieapp.R
 import com.steven.movieapp.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_movie_info.*
 
@@ -19,6 +20,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+      //  setTheme(R.style.DarkAppTheme)
         setContentView(getLayoutId())
         setupActionBar()
         initView()
