@@ -16,8 +16,8 @@ class CommentsAdapter(context: Context, layoutId: Int, data: List<Comment>) :
 
     override fun convert(holder: BaseViewHolder, position: Int, item: Comment) {
         holder.setText(R.id.name, item.author.name)
-            .setText(R.id.pubdates, item.created_at)
-            .setText(R.id.useful_count, item.useful_count.toString())
+            .setText(R.id.pubdates, item.createdAt)
+            .setText(R.id.useful_count, item.usefulCount.toString())
             .setText(R.id.content, item.content)
             .setImage(R.id.avatar, item.author.avatar)
 

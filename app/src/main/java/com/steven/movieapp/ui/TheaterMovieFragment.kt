@@ -16,6 +16,6 @@ class TheaterMovieFragment : BaseResultRefreshFragment() {
     }
 
     override fun onRequestData() {
-        movieViewModel.getInTheaters().observe(this, mObserver)
+        movieViewModel.getInTheaters().observe(this, observer)
     }
 }

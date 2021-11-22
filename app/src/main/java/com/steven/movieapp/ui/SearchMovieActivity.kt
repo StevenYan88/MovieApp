@@ -104,7 +104,8 @@ class SearchMovieActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListene
         })
     }
 
-    private fun showMovie(movies: List<Movie>) {
+    private fun showMovie(movies: List<Movie>?) {
+        if (movies.isNullOrEmpty()) return
         if (load_view.visibility == View.VISIBLE) {
             load_view.visibility = View.GONE
         }
@@ -138,7 +139,7 @@ class SearchMovieActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListene
     override fun onLoad() {
         start += 20
         movieViewModel.getMovieSearchByTag(name, start, 20).observe(this, Observer {
-            if (it.subjects.isNotEmpty()) {
+            if (!it.subjects.isNullOrEmpty()) {
                 showMovie(it.subjects)
             }
         })

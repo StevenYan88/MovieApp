@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -49,13 +50,14 @@ class MovieInfoActivity : BaseActivity() {
 
     override fun onRequestData() {
         movieViewModel.getMovieInfo(movieId).observe(this, Observer {
-            showMovieInfo(it)
-            showActors(it.casts)
-            showMovieTrailers(it.trailers)
-            showBloopers(it.bloopers)
-            showMovieComments(it.popular_comments)
+            if (it != null) {
+                showMovieInfo(it)
+                showActors(it.casts)
+                showMovieTrailers(it.trailers)
+                showBloopers(it.bloopers)
+                showMovieComments(it.popularComments)
+            }
         })
-
     }
 
     /**
@@ -111,7 +113,7 @@ class MovieInfoActivity : BaseActivity() {
         adapter.setOnItemClickListener(object : OnItemClickListener<Bloopers> {
             override fun onItemClick(view: View, position: Int, item: Bloopers) {
                 val intent = Intent(this@MovieInfoActivity, PlayVideoActivity::class.java)
-                intent.putExtra("video_url", item.resource_url)
+                intent.putExtra("video_url", item.resourceUrl)
                 intent.putExtra("title", item.title)
                 startActivity(intent)
             }
@@ -131,7 +133,7 @@ class MovieInfoActivity : BaseActivity() {
         adapter.setOnItemClickListener(object : OnItemClickListener<Trailers> {
             override fun onItemClick(view: View, position: Int, item: Trailers) {
                 val intent = Intent(this@MovieInfoActivity, PlayVideoActivity::class.java)
-                intent.putExtra("video_url", item.resource_url)
+                intent.putExtra("video_url", item.resourceUrl)
                 intent.putExtra("title", item.title)
                 startActivity(intent)
             }

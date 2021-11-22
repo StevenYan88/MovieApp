@@ -24,8 +24,8 @@ class MainActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun initView() {
-        setupFragment()
         setSupportActionBar(toolbar)
+        setupFragment()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

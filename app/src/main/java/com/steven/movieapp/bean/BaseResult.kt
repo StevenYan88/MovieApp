@@ -9,5 +9,5 @@ data class BaseResult<T>(
     val count: Int,
     val start: Int,
     val total: Int,
-    val subjects: T
+    val subjects: T?
 )

@@ -1,9 +1,8 @@
-package com.steven.movieapp.api
+package com.steven.movieapp.http
 
 import android.util.Log
 import com.steven.movieapp.utils.BASE_URL
 import com.steven.movieapp.utils.TAG
-import com.steven.movieapp.viewmodel.LiveDataCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

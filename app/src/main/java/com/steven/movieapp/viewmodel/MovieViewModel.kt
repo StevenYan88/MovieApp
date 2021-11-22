@@ -3,9 +3,8 @@ package com.steven.movieapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.steven.movieapp.utils.API_KEY
-import com.steven.movieapp.api.RetrofitClient
+import com.steven.movieapp.http.RetrofitClient
 import com.steven.movieapp.bean.*
-import com.steven.movieapp.repository.MoiveRepository
 
 /**
  * Description:
@@ -35,7 +34,7 @@ class MovieViewModel : ViewModel() {
     /**
      * 北美票房榜
      */
-    fun getMovieUsBox(): LiveData<BaseSubjects<Weekly>> =
+    fun getMovieUsBox():  LiveData<BaseSubjects<Weekly>> =
         RetrofitClient.serviceApi.getMovieUsBox(API_KEY)
 
     /**

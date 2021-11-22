@@ -57,7 +57,7 @@ class ActorInfoActivity : BaseActivity() {
         gender.text = String.format("性别：%s", actor.gender)
         constellation.text = String.format("星座：%s", actor.constellation)
         birthday.text = String.format("出生日期：%s", actor.birthday)
-        born_place.text = String.format("出生地：%s", actor.born_place)
+        born_place.text = String.format("出生地：%s", actor.bornPlace)
         actor_summary.text = actor.summary
         shareText = actor.summary
 

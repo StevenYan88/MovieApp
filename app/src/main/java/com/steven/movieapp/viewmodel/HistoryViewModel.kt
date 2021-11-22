@@ -3,7 +3,7 @@ package com.steven.movieapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.steven.movieapp.db.History
-import com.steven.movieapp.db.HistoryRepository
+import com.steven.movieapp.repository.HistoryRepository
 
 /**
  * Description:

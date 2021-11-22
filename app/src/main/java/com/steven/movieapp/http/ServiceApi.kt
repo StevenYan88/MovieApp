@@ -1,4 +1,4 @@
-package com.steven.movieapp.api
+package com.steven.movieapp.http
 
 import androidx.lifecycle.LiveData
 import com.steven.movieapp.bean.*

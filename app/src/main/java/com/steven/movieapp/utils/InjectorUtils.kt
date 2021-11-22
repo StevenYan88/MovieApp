@@ -19,7 +19,7 @@ package com.steven.movieapp.utils
 import android.content.Context
 import com.steven.movieapp.db.AppDatabase
 import com.steven.movieapp.db.History
-import com.steven.movieapp.db.HistoryRepository
+import com.steven.movieapp.repository.HistoryRepository
 import com.steven.movieapp.viewmodel.HistoryViewModelFactory
 
 /**
@@ -36,7 +36,7 @@ object InjectorUtils {
         }
     }
 
-    private fun getGardenPlantingRepository(context: Context): HistoryRepository {
+    private fun getSearchMoveRepository(context: Context): HistoryRepository {
         return HistoryRepository.getInstance(
             AppDatabase.getInstance(context.applicationContext).historyDao()
         )
@@ -46,7 +46,7 @@ object InjectorUtils {
     fun providerHistoryViewModelFactory(
         context: Context
     ): HistoryViewModelFactory {
-        val repository = getGardenPlantingRepository(context)
+        val repository = getSearchMoveRepository(context)
         return HistoryViewModelFactory(repository)
     }
 }

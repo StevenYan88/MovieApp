@@ -17,7 +17,7 @@ class ActorWorksAdapter(context: Context, layoutId: Int, data: List<Works>) :
 
     override fun convert(holder: BaseViewHolder, position: Int, item: Works) {
         holder.setImage(R.id.iv_actor, item.subject.images.large)
-            .setText(R.id.name, item.subject.title)
+            .setText(R.id.name, item.subject.title?:"")
             .setText(R.id.year, item.subject.year)
     }
 

@@ -1,5 +1,7 @@
 package com.steven.movieapp.bean
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Description:
  * Data：2/21/2019-2:27 PM
@@ -7,13 +9,18 @@ package com.steven.movieapp.bean
  */
 data class Actor(
     //演员图片
+    @SerializedName("avatars")
     val avatars: Images,
     //英文名
-    val name_en: String,
+    @SerializedName("name_en")
+    val nameEn: String,
     //中文名
+    @SerializedName("name")
     val name: String,
     //影人简介
+    @SerializedName("alt")
     val alt: String,
     //演员id
+    @SerializedName("id")
     val id: String
 )

@@ -1,6 +1,6 @@
 
 
-package com.steven.movieapp.api
+package com.steven.movieapp.http
 
 import retrofit2.Response
 

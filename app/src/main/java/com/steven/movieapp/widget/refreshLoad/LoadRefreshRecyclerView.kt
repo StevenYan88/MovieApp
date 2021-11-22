@@ -26,10 +26,13 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
     companion object {
         //默认状态
         private const val LOAD_STATUS_NORMAL = 0x0011
+
         //上滑加载状态
         const val LOAD_STATUS_PULL_DOWN_REFRESH = 0x0022
+
         //松开加载状态
         const val LOAD_STATUS_LOOSEN_LOADING = 0x0033
+
         //正在刷加载状态
         private const val LOAD_STATUS_LOADING = 0x0044
     }
@@ -38,7 +41,11 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    )
 
     override fun setAdapter(adapter: Adapter<ViewHolder>?) {
         super.setAdapter(adapter)
@@ -72,6 +79,7 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
     }
 
     private fun restoreLoadView() {
+        if (mLoadView == null) return
         val currentBottomMargin = (mLoadView!!.layoutParams as MarginLayoutParams).bottomMargin
         val finalBottomMargin = 0
         if (mCurrentLoadStatus == LOAD_STATUS_LOOSEN_LOADING) {
@@ -86,8 +94,9 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
         }
         val distance = currentBottomMargin - finalBottomMargin
 
-        val animator = ObjectAnimator.ofFloat(currentBottomMargin.toFloat(), finalBottomMargin.toFloat())
-            .setDuration(distance.toLong())
+        val animator =
+            ObjectAnimator.ofFloat(currentBottomMargin.toFloat(), finalBottomMargin.toFloat())
+                .setDuration(distance.toLong())
         animator.addUpdateListener { animation ->
             @Suppress("NAME_SHADOWING")
             val currentBottomMargin = animation.animatedValue as Float
@@ -139,6 +148,7 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
     }
 
     private fun updateLoadStatus(distanceY: Int) {
+        if (mLoadViewCreator == null) return
         mCurrentLoadStatus = when {
             distanceY <= 0 -> LOAD_STATUS_NORMAL
             distanceY < mLoadViewHeight -> LOAD_STATUS_PULL_DOWN_REFRESH
@@ -152,6 +162,7 @@ class LoadRefreshRecyclerView : RefreshRecyclerView {
     }
 
     fun onStopLoad() {
+        if (mLoadViewCreator == null) return
         mCurrentLoadStatus = LOAD_STATUS_NORMAL
         restoreLoadView()
         mLoadViewCreator!!.onStopLoad()

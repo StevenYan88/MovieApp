@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.steven.movieapp.R
 import com.steven.movieapp.adapter.WeeklyAdapter
 import com.steven.movieapp.bean.BaseSubjects
+import com.steven.movieapp.bean.Movie
+import com.steven.movieapp.bean.Subject
 import com.steven.movieapp.bean.Weekly
 import com.steven.movieapp.ui.MovieInfoActivity
 import com.steven.movieapp.viewmodel.MovieViewModel
@@ -26,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_base_refresh.*
  * @author yanzhiwen
  */
 abstract class BaseSubjectsRefreshFragment : LazyFragment(), OnItemClickListener<Weekly>,
-        RefreshRecyclerView.OnRefreshListener {
+    RefreshRecyclerView.OnRefreshListener {
 
     private var movies = arrayListOf<Weekly>()
 
@@ -36,22 +38,16 @@ abstract class BaseSubjectsRefreshFragment : LazyFragment(), OnItemClickListener
     protected val movieViewModel: MovieViewModel by lazy {
         ViewModelProviders.of(this, MovieViewModelFactory()).get(MovieViewModel::class.java)
     }
-
-    protected val mObserver: Observer<BaseSubjects<Weekly>> by lazy {
+    val observer: Observer<BaseSubjects<Weekly>> by lazy {
         Observer<BaseSubjects<Weekly>> {
-            if (it == null && movies.isEmpty()) {
+            if (it == null) {
                 sv.showErrorView()
                 return@Observer
             }
             sv.removeAllViews()
-            if (movies.isEmpty()) {
-                this.movies = it.subjects as ArrayList<Weekly>
-                rv_movies.adapter = adapter
-            } else {
-                rv_movies.onStopRefresh()
-                adapter.notifyDataSetChanged()
-            }
-            adapter.setOnItemClickListener(this)
+            rv_movies.onStopRefresh()
+            movies.addAll(it.subjects)
+            adapter.notifyDataSetChanged()
         }
     }
 
@@ -67,7 +63,9 @@ abstract class BaseSubjectsRefreshFragment : LazyFragment(), OnItemClickListener
         })
         rv_movies.itemAnimator = DefaultItemAnimator()
         rv_movies.addRefreshViewCreator(DefaultRefreshViewCreator())
+        rv_movies.adapter = adapter
         rv_movies.setOnRefreshListener(this)
+        adapter.setOnItemClickListener(this)
     }
 
 
@@ -76,10 +74,10 @@ abstract class BaseSubjectsRefreshFragment : LazyFragment(), OnItemClickListener
         intent.putExtra("movie_id", item.subject.id)
         val v = view.findViewById<ImageView>(R.id.iv_movie)
         val options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        requireActivity(),
-                        v, getString(R.string.transition_movie_image)
-                )
+            ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(),
+                v, getString(R.string.transition_movie_image)
+            )
         startActivity(intent, options.toBundle())
     }
 

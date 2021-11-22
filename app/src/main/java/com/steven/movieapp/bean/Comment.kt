@@ -1,17 +1,26 @@
 package com.steven.movieapp.bean
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Description:
  * Data：2/21/2019-2:24 PM
  * @author yanzhiwen
  */
 data class Comment(
+    @SerializedName("rating")
     val rating: Rate,
-    val useful_count: Int,
+    @SerializedName("usefulCount")
+    val usefulCount: Int,
+    @SerializedName("author")
     val author: Author,
-    val subject_id: String,
+    @SerializedName("subject_id")
+    val subjectId: String,
+    @SerializedName("content")
     val content: String,
-    val created_at: String,
+    @SerializedName("created_at")
+    val createdAt: String,
+    @SerializedName("id")
     val id: String
 
 )

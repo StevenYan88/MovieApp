@@ -1,4 +1,4 @@
-package com.steven.movieapp.viewmodel
+package com.steven.movieapp.http
 
 import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter

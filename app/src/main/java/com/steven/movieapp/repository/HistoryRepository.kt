@@ -1,6 +1,8 @@
-package com.steven.movieapp.db
+package com.steven.movieapp.repository
 
 import androidx.lifecycle.LiveData
+import com.steven.movieapp.db.History
+import com.steven.movieapp.db.HistoryDao
 import com.steven.movieapp.utils.AppExecutors
 
 /**

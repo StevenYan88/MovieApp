@@ -30,13 +30,13 @@ import kotlinx.android.synthetic.main.fragment_base_refresh.*
  * @author yanzhiwen
  */
 abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<Movie>,
-        RefreshRecyclerView.OnRefreshListener,
-        LoadRefreshRecyclerView.OnLoadListener {
+    RefreshRecyclerView.OnRefreshListener,
+    LoadRefreshRecyclerView.OnLoadListener {
 
 
     private var movies = arrayListOf<Movie>()
 
-    private val adapter: MovieAdapter  by lazy {
+    private val adapter: MovieAdapter by lazy {
         MovieAdapter(activity!!, R.layout.movie_list_item, movies)
     }
 
@@ -44,26 +44,22 @@ abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<M
         ViewModelProviders.of(this, MovieViewModelFactory()).get(MovieViewModel::class.java)
     }
 
-    protected val mObserver: Observer<BaseResult<List<Movie>>> by lazy {
+    protected val observer: Observer<BaseResult<List<Movie>>> by lazy {
         Observer<BaseResult<List<Movie>>> {
-            if (it == null && movies.isEmpty()) {
+            if (it == null) {
                 sv.showErrorView()
                 return@Observer
             }
             sv.removeAllViews()
-            if (movies.isEmpty()) {
-                this.movies = it.subjects as ArrayList<Movie>
-                rv_movies.adapter = adapter
+            rv_movies.onStopRefresh()
+            if (!it.subjects.isNullOrEmpty()) {
                 setupLoopMovieName(it.subjects)
-            } else {
-                rv_movies.onStopRefresh()
-                if (this is Top250MovieFragment && it.subjects.isNotEmpty() && rv_movies.isLoading()) {
-                    movies.addAll(it.subjects)
-                    rv_movies.onStopLoad()
-                }
+                movies.addAll(it.subjects)
+                rv_movies.onStopLoad()
                 adapter.notifyDataSetChanged()
+                rv_movies.addLoadViewCreator(DefaultLoadViewCreator())
+                rv_movies.setOnLoadListener(this)
             }
-            adapter.setOnItemClickListener(this)
         }
     }
 
@@ -80,10 +76,10 @@ abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<M
         rv_movies.itemAnimator = DefaultItemAnimator()
         rv_movies.addRefreshViewCreator(DefaultRefreshViewCreator())
         rv_movies.setOnRefreshListener(this)
-        if (this is Top250MovieFragment) {
-            rv_movies.addLoadViewCreator(DefaultLoadViewCreator())
-            rv_movies.setOnLoadListener(this)
-        }
+        adapter.setOnItemClickListener(this)
+
+        rv_movies.adapter = adapter
+
     }
 
     override fun onItemClick(view: View, position: Int, item: Movie) {
@@ -91,10 +87,10 @@ abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<M
         intent.putExtra("movie_id", item.id)
         val v = view.findViewById<ImageView>(R.id.iv_movie)
         val options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        requireActivity(),
-                        v, getString(R.string.transition_movie_image)
-                )
+            ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(),
+                v, getString(R.string.transition_movie_image)
+            )
         startActivity(intent, options.toBundle())
     }
 
@@ -108,7 +104,7 @@ abstract class BaseResultRefreshFragment : LazyFragment(), OnItemClickListener<M
 
     private fun setupLoopMovieName(movies: List<Movie>) {
         val textList = arrayListOf<String>()
-        movies.forEach { textList.add(it.title + " | " + it.original_title) }
+        movies.forEach { textList.add(it.title + " | " + it.originalTitle) }
         activity?.apply {
             findViewById<LoopTextView>(R.id.loop_movie_name).setTextList(textList)
         }

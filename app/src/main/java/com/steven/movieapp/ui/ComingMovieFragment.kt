@@ -16,6 +16,6 @@ class ComingMovieFragment : BaseResultRefreshFragment() {
     }
 
     override fun onRequestData() {
-        movieViewModel.getComingSoon().observe(this, mObserver)
+        movieViewModel.getComingSoon().observe(this, observer)
     }
 }

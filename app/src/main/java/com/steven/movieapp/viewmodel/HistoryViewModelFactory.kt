@@ -2,7 +2,7 @@ package com.steven.movieapp.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.steven.movieapp.db.HistoryRepository
+import com.steven.movieapp.repository.HistoryRepository
 
 /**
  * Description:

@@ -1,7 +1,6 @@
-package com.steven.movieapp.viewmodel
+package com.steven.movieapp.http
 
 import androidx.lifecycle.LiveData
-import com.steven.movieapp.api.ApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback

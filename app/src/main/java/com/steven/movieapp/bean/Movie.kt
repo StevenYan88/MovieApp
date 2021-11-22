@@ -1,5 +1,7 @@
 package com.steven.movieapp.bean
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Description:
  * Data：2019/1/28
@@ -7,33 +9,45 @@ package com.steven.movieapp.bean
  */
 data class Movie(
     //评分
+    @SerializedName("rating")
     val rating: Rate,
     //类型
+    @SerializedName("genres")
     val genres: List<String>,
     //电影名称
-    val title: String,
+    @SerializedName("title")
+    val title: String?,
     //演员简介
+    @SerializedName("casts")
     val casts: List<Avaters>,
     //片长
+    @SerializedName("durations")
     val durations: List<String>,
     //收藏数
-    val collect_count: Int,
+    @SerializedName("collect_count")
+    val collectCount: Int,
     //大陆上映日期
-    val mainland_pubdate: String,
+    @SerializedName("mainland_pubdate")
+    val mainlandPubdate: String,
     //原名
-    val original_title: String,
+    @SerializedName("original_title")
+    val originalTitle: String,
     //导演
+    @SerializedName("directors")
     val directors: List<Directors>,
     //上映时间
+    @SerializedName("pubdates")
     val pubdates: List<String>,
     //上映年份
+    @SerializedName("year")
     val year: String,
     //剧照
+    @SerializedName("images")
     val images: Images,
     //影片h5链接
+    @SerializedName("alt")
     val alt: String,
     //影片id
+    @SerializedName("id")
     val id: String
-
-
 )
