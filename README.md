@@ -2,7 +2,7 @@
 #### 电影资讯
 
 1. 电影资讯App是一个纯练手项目，使用了系统API28，全部是基于Androidx包下的。  
-2. 使用Kotlin语言开发，MVVM架构思想，使用了Android JetPack中的LiveData、ViewModel、Room等架构组件。    
+2. 使用Kotlin语言开发，使用了Android JetPack中的LiveData、ViewModel、Room等架构组件。    
 3. Api来自豆瓣电影，豆瓣电影Api目前是不公开的，小编是在简书上看到有人公开了访问豆瓣电影的Api的API_KEY，如果有侵犯，请联系删除！
 
 #### 项目截图
@@ -14,7 +14,7 @@
 #### app主要设计到知识点、技术点：
 - Material Design UI设计风格； 
 - 使用Kotlin开发，大家想学习和巩固Kotlin，可以参考这个App；
-- MVVM架构思想搭建项目的框架，使用了Android JetPack中的LiveData、ViewModel、Room等架构组件；  
+- 使用了Android JetPack中的LiveData、ViewModel、Room等架构组件；  
 - Retrofit融合LiveData去请求网络，手写一个LiveDataCallAdapter适配器，为了Retrofit适配LiveData；  
 - 自定义RecyclerView支持上拉刷新和下拉加载，并且使用装饰者设计模式添加不同类型头部和底部的View以及动画；
 - 自定义一个视频播放器；
