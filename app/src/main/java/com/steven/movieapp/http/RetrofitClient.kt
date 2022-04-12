@@ -17,15 +17,19 @@ class RetrofitClient {
     companion object {
         val serviceApi: ServiceApi by lazy {
             val retrofitClient = Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(OkHttpClient.Builder()
-                            .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-                                Log.i(TAG, message)
-                            }).setLevel(HttpLoggingInterceptor.Level.BODY)
-                            ).build())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(LiveDataCallAdapterFactory())
-                    .build()
+                .baseUrl(BASE_URL)
+                .client(
+                    OkHttpClient.Builder().addInterceptor(
+                        HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+                            override fun log(message: String) {
+                                Log.d("RetrofitClient", "log: $message")
+                            }
+                        }).setLevel(HttpLoggingInterceptor.Level.BODY)
+                    ).build()
+                )
+                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .build()
             retrofitClient.create(ServiceApi::class.java)
         }
     }

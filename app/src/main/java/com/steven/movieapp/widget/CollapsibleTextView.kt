@@ -20,15 +20,18 @@ import com.steven.movieapp.R
  * Data：2/25/2019-9:51 AM
  * @author yanzhiwen
  */
-class CollapsibleTextView : TextView {
+class CollapsibleTextView : androidx.appcompat.widget.AppCompatTextView {
     //最大显示的行数，其余的折叠
     var collapsedLines: Int
+
     //折叠时的后缀文字,eg.“展开”
     var collapsedText: String
+
     //展开时的后缀文字,eg.“收起”
     var expandedText: String
 
     var suffixColor: Int
+
     //默认显示3行
     private var defaultLines: Int = 3
 
@@ -38,8 +41,10 @@ class CollapsibleTextView : TextView {
 
     //TextView的文本内容
     private lateinit var content: String
+
     //是否展开
     private var isNeedExpanded: Boolean = true
+
     //是否带省略点...
     private var isNeedEllipsis: Boolean = true
 
@@ -68,6 +73,7 @@ class CollapsibleTextView : TextView {
         }
 
     }
+
     /**
      * TextView自身点击事件(除后缀外的部分)
      */
@@ -85,16 +91,20 @@ class CollapsibleTextView : TextView {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CollapsibleTextView)
         collapsedLines =
             typedArray.getInteger(R.styleable.CollapsibleTextView_collapsedLines, defaultLines)
-        collapsedText = typedArray.getString(R.styleable.CollapsibleTextView_collapsedText)
-        expandedText = typedArray.getString(R.styleable.CollapsibleTextView_expandedText)
+        collapsedText = typedArray.getString(R.styleable.CollapsibleTextView_collapsedText) ?: ""
+        expandedText = typedArray.getString(R.styleable.CollapsibleTextView_expandedText) ?: ""
         suffixColor = typedArray.getColor(R.styleable.CollapsibleTextView_suffixColor, Color.RED)
         typedArray.recycle()
-
 
         if (TextUtils.isEmpty(collapsedText))
             collapsedText = defaultCollapsedText

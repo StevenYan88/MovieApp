@@ -10,10 +10,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:stateListAnimator="@animator/item_touch_raise"
+            app:cardBackgroundColor="?attr/itemBackgroundColor"
             app:cardCornerRadius="@dimen/x_half"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:cardBackgroundColor="?attr/itemBackgroundColor"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -41,7 +41,6 @@
 
             <TextView
                     android:id="@+id/genres"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/x"
@@ -54,7 +53,6 @@
 
             <TextView
                     android:id="@+id/pubdates"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"

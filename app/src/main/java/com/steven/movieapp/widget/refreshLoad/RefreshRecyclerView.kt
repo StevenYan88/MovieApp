@@ -13,31 +13,38 @@ import android.view.View
  * Actor:Steven
  */
 open class RefreshRecyclerView : WrapRecyclerView {
-    private lateinit var mRefreshCreator: RefreshViewCreator
-    private lateinit var mRefreshView: View
+    private var mRefreshCreator: RefreshViewCreator? = null
+    private var mRefreshView: View? = null
     private var mFingerDownY: Int = 0
     private var mRefreshViewHeight: Int = 0
     private val mDragIndex: Float = 0.35f
     private var mCurrentDrag: Boolean = false
     private var mCurrentRefreshStatus: Int =
-            REFRESH_STATUS_NORMAL
+        REFRESH_STATUS_NORMAL
     private var mListener: OnRefreshListener? = null
     private var isRefreshing = true
 
     companion object {
         //默认状态
         private const val REFRESH_STATUS_NORMAL = 0x0011
+
         //下拉刷新状态
         private const val REFRESH_STATUS_PULL_DOWN_REFRESH = 0x0022
+
         //松开刷新状态
         private const val REFRESH_STATUS_LOOSEN_REFRESHING = 0x0033
+
         //正在刷新状态
         private const val REFRESH_STATUS_REFRESHING = 0x0044
     }
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    )
 
     override fun setAdapter(adapter: Adapter<ViewHolder>?) {
         super.setAdapter(adapter)
@@ -46,7 +53,7 @@ open class RefreshRecyclerView : WrapRecyclerView {
 
     fun addRefreshViewCreator(refreshCreator: RefreshViewCreator) {
         this.mRefreshCreator = refreshCreator
-        mRefreshView = mRefreshCreator.getRefreshView(context, this)
+        mRefreshView = mRefreshCreator?.getRefreshView(context, this)
     }
 
     private fun addRefreshView() {
@@ -71,13 +78,14 @@ open class RefreshRecyclerView : WrapRecyclerView {
     }
 
     private fun restoreRefreshView() {
-        val currentTopMargin = (mRefreshView.layoutParams as MarginLayoutParams).topMargin
+        if (mRefreshView == null) return
+        val currentTopMargin = (mRefreshView?.layoutParams as MarginLayoutParams).topMargin
         var finalTopMargin = -mRefreshViewHeight + 1
         if (mCurrentRefreshStatus == REFRESH_STATUS_LOOSEN_REFRESHING) {
             finalTopMargin = 0
             mCurrentRefreshStatus =
-                    REFRESH_STATUS_REFRESHING
-            mRefreshCreator.onRefreshing()
+                REFRESH_STATUS_REFRESHING
+            mRefreshCreator?.onRefreshing()
 
             mListener?.apply {
                 onRefresh()
@@ -87,7 +95,7 @@ open class RefreshRecyclerView : WrapRecyclerView {
         val distance = currentTopMargin - finalTopMargin
 
         val animator = ObjectAnimator.ofFloat(currentTopMargin.toFloat(), finalTopMargin.toFloat())
-                .setDuration(distance.toLong())
+            .setDuration(distance.toLong())
         animator.addUpdateListener { animation ->
             @Suppress("NAME_SHADOWING")
             val currentTooMargin = animation.animatedValue as Float
@@ -101,7 +109,7 @@ open class RefreshRecyclerView : WrapRecyclerView {
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         super.onLayout(changed, l, t, r, b)
         if (mRefreshViewHeight <= 0) {
-            mRefreshViewHeight = mRefreshView.measuredHeight
+            mRefreshViewHeight = mRefreshView?.measuredHeight ?: 0
             if (mRefreshViewHeight > 0) {
                 setRefreshViewMarginTop(-mRefreshViewHeight + 1)
             }
@@ -113,13 +121,14 @@ open class RefreshRecyclerView : WrapRecyclerView {
      * 设置刷新topMargin
      */
     private fun setRefreshViewMarginTop(marginTop: Int) {
+        if (mRefreshView == null) return
         var topMargin = marginTop
-        val params = mRefreshView.layoutParams as MarginLayoutParams
+        val params = mRefreshView?.layoutParams as MarginLayoutParams
         if (topMargin < -mRefreshViewHeight + 1) {
             topMargin = -mRefreshViewHeight + 1
         }
         params.topMargin = topMargin
-        mRefreshView.layoutParams = params
+        mRefreshView?.layoutParams = params
     }
 
 
@@ -153,7 +162,7 @@ open class RefreshRecyclerView : WrapRecyclerView {
             distanceY <= mRefreshViewHeight -> REFRESH_STATUS_PULL_DOWN_REFRESH
             else -> REFRESH_STATUS_LOOSEN_REFRESHING
         }
-        mRefreshCreator.onPull(distanceY, mRefreshViewHeight, mCurrentRefreshStatus)
+        mRefreshCreator?.onPull(distanceY, mRefreshViewHeight, mCurrentRefreshStatus)
     }
 
     private fun canScrollUp(): Boolean {
@@ -162,9 +171,9 @@ open class RefreshRecyclerView : WrapRecyclerView {
 
     fun onStopRefresh() {
         mCurrentRefreshStatus =
-                REFRESH_STATUS_NORMAL
+            REFRESH_STATUS_NORMAL
         restoreRefreshView()
-        mRefreshCreator.onStopRefresh()
+        mRefreshCreator?.onStopRefresh()
     }
 
     fun setOnRefreshListener(listener: OnRefreshListener) {

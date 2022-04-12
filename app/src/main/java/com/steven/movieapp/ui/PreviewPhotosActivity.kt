@@ -21,14 +21,14 @@ class PreviewPhotosActivity : BaseActivity(), DragPhotoView.OnExitListener {
         intent.getIntExtra("position", 0)
     }
     private val photos: ArrayList<Photo> by lazy {
-        intent.getParcelableArrayListExtra<Photo>("photos")
+        intent.getParcelableArrayListExtra<Photo>("photos") ?: arrayListOf()
     }
     private val name: String by lazy {
-        intent.getStringExtra("name")
+        intent.getStringExtra("name") ?: ""
 
     }
     private val summary: String by lazy {
-        intent.getStringExtra("summary")
+        intent.getStringExtra("summary") ?: ""
 
     }
 
@@ -67,7 +67,11 @@ class PreviewPhotosActivity : BaseActivity(), DragPhotoView.OnExitListener {
 
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
             }
 
             override fun onPageSelected(position: Int) {
@@ -82,5 +86,4 @@ class PreviewPhotosActivity : BaseActivity(), DragPhotoView.OnExitListener {
     override fun onExit(p0: DragPhotoView?, p1: Float, p2: Float, p3: Float, p4: Float) {
         finish()
     }
-
 }

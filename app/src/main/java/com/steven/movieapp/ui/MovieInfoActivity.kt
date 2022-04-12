@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -16,8 +18,11 @@ import com.steven.movieapp.adapter.CommentsAdapter
 import com.steven.movieapp.adapter.TrailersAdapter
 import com.steven.movieapp.base.BaseActivity
 import com.steven.movieapp.bean.*
+import com.steven.movieapp.repository.MovieRepository
 import com.steven.movieapp.utils.ShareUtil
 import com.steven.movieapp.utils.StringFormat
+import com.steven.movieapp.viewmodel.MovieViewModel
+import com.steven.movieapp.viewmodel.MovieViewModelFactory
 import com.steven.movieapp.widget.recyclerview.DividerItemDecoration
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
 import kotlinx.android.synthetic.main.activity_movie_info.*
@@ -30,9 +35,10 @@ import kotlinx.android.synthetic.main.load_view.*
  */
 class MovieInfoActivity : BaseActivity() {
 
+    private val movieViewModel: MovieViewModel by viewModels { MovieViewModelFactory(MovieRepository.getInstance()) }
     private lateinit var shareText: String
     private val movieId: String by lazy {
-        intent.getStringExtra("movie_id")
+        intent.getStringExtra("movie_id") ?: ""
     }
 
     override fun getLayoutId(): Int = R.layout.activity_movie_info
@@ -49,12 +55,13 @@ class MovieInfoActivity : BaseActivity() {
     }
 
     override fun onRequestData() {
-        movieViewModel.getMovieInfo(movieId).observe(this, Observer {
+        movieViewModel.getMovieInfo(movieId)
+        movieViewModel.movieInfoLiveData.observe(this, Observer {
             if (it != null) {
                 showMovieInfo(it)
                 showActors(it.casts)
-                showMovieTrailers(it.trailers)
                 showBloopers(it.bloopers)
+                showMovieTrailers(it.trailers)
                 showMovieComments(it.popularComments)
             }
         })
@@ -62,9 +69,7 @@ class MovieInfoActivity : BaseActivity() {
 
     /**
      * 电影信息
-     *
      * @param movieInfo 电影信息
-     *
      */
     private fun showMovieInfo(movieInfo: MovieInfo) {
         load_view.visibility = View.GONE
@@ -84,9 +89,7 @@ class MovieInfoActivity : BaseActivity() {
 
     /**
      * 演员图片
-     *
      * @param actors 演员图片
-     *
      */
     private fun showActors(actors: List<Actor>) {
         rv_actors.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -104,7 +107,6 @@ class MovieInfoActivity : BaseActivity() {
     /**
      * 花絮
      * @param bloopers 花絮
-     *
      */
     private fun showBloopers(bloopers: List<Bloopers>) {
         rv_bloopers.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -122,9 +124,7 @@ class MovieInfoActivity : BaseActivity() {
 
     /**
      * 预告片
-     *
      * @param trailers 预告片
-     *
      */
     private fun showMovieTrailers(trailers: List<Trailers>) {
         rv_trailers.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -142,9 +142,7 @@ class MovieInfoActivity : BaseActivity() {
 
     /**
      * 评论
-     *
      * @param popular_comments 评论
-     *
      */
     private fun showMovieComments(popular_comments: List<Comment>) {
         rv_comments.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

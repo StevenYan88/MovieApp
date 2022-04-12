@@ -28,18 +28,18 @@ class StatusView : FrameLayout {
     // 状态布局 View 缓存集合
     private val viewArray = SparseArray<View>()
 
-    constructor(context: Context?) : this(context, null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        val attributes = context?.obtainStyledAttributes(attrs, R.styleable.StatusView)
-        attributes?.apply {
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.StatusView)
+        attributes.apply {
             loadViewId = getResourceId(R.styleable.StatusView_loadView, loadViewId)
             errorViewId = getResourceId(R.styleable.StatusView_loadView, errorViewId)
             noNetworkViewId = getResourceId(R.styleable.StatusView_loadView, noNetworkViewId)
         }
-        attributes?.recycle()
+        attributes.recycle()
 
-        currentView = LayoutInflater.from(context!!).inflate(loadViewId, null)
+        currentView = LayoutInflater.from(context).inflate(loadViewId, null)
     }
 
 

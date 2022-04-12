@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.steven.movieapp.bean.History
+import com.steven.movieapp.dao.HistoryDao
 
 /**
  * Description:
@@ -17,7 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
 
     companion object {
-        private const val DATABASE_NAME = "history.db"
+        private const val DATABASE_NAME = "movie.db"
         @Volatile
         private var instance: AppDatabase? = null
 

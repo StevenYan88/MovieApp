@@ -1,9 +1,11 @@
-package com.steven.movieapp.db
+package com.steven.movieapp.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.steven.movieapp.bean.History
 
 /**
  * Description:
@@ -15,9 +17,7 @@ interface HistoryDao {
     @Query("SELECT * FROM histories")
     fun getSearchHistory(): LiveData<List<History>>
 
-    @Insert
-    fun insertHistory(history: History)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertHistory(history: History)
 
-    @Query("SELECT * FROM histories WHERE name = :searchName")
-    fun getSearchHistoryByName(searchName: String): LiveData<History>
 }

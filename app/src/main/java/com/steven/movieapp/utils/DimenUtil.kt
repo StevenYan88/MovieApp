@@ -2,10 +2,7 @@
 import android.content.Context
 import android.view.View
 
-/**
- * Created by Howshea
- * on 2018/7/17.
- */
+
 //returns dp(dp) dimension value in pixels
 fun Context.dp(value: Int): Int = (value * resources.displayMetrics.density + 0.5f).toInt()
 

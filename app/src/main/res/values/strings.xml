@@ -2,12 +2,13 @@
     <string name="app_name">电影资讯</string>
 
     <string-array name="tab_movies">
-        <item>正在热映</item>
-        <item>即将上映</item>
-        <item>口碑榜</item>
         <item>北美票房榜</item>
         <item>新片榜</item>
+        <item>口碑榜</item>
+        <item>正在热映</item>
+        <item>即将上映</item>
         <item>Top250</item>
+
     </string-array>
 
     <string name="app">一款电影资讯app</string>
@@ -39,5 +40,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_subtitle">https://github.com/StevenYan88/MovieApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

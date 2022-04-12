@@ -5,6 +5,8 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -15,7 +17,10 @@ import com.steven.movieapp.base.BaseActivity
 import com.steven.movieapp.bean.ActorInfo
 import com.steven.movieapp.bean.Photo
 import com.steven.movieapp.bean.Works
+import com.steven.movieapp.repository.MovieRepository
 import com.steven.movieapp.utils.ShareUtil
+import com.steven.movieapp.viewmodel.MovieViewModel
+import com.steven.movieapp.viewmodel.MovieViewModelFactory
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
 import kotlinx.android.synthetic.main.activity_actor_info.*
 import kotlinx.android.synthetic.main.load_view.*
@@ -25,28 +30,29 @@ class ActorInfoActivity : BaseActivity() {
     private lateinit var shareText: String
     private lateinit var name: String
     private val actorId: String by lazy {
-        intent.getStringExtra("actor_id")
+        intent.getStringExtra("actor_id") ?: ""
     }
+    private val movieViewModel: MovieViewModel by viewModels { MovieViewModelFactory(MovieRepository.getInstance()) }
 
     override fun getLayoutId() = R.layout.activity_actor_info
 
 
     override fun initView() {
-
         fab.setOnClickListener {
             ShareUtil.share(this, shareText)
         }
-
     }
 
     override fun onRequestData() {
-        movieViewModel.getCelebrity(actorId).observe(this, Observer {
-            showActorInfo(it)
-            showPhotos(it.photos)
-            showActorWorks(it.works)
+        movieViewModel.getCelebrity(actorId)
+        movieViewModel.actorInfoLiveData.observe(this, Observer {
+            if (it != null) {
+                showActorInfo(it)
+                showPhotos(it.photos)
+                showActorWorks(it.works)
+            }
         })
     }
-
 
     private fun showActorInfo(actor: ActorInfo) {
         load_view.visibility = View.GONE

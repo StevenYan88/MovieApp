@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 open class WrapRecyclerView : RecyclerView {
 
     private lateinit var mWrapRecyclerAdapter: WrapRecyclerAdapter
-    private lateinit var mAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    private lateinit var mAdapter: Adapter<ViewHolder>
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 
 
-    override fun setAdapter(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>?) {
+    override fun setAdapter(adapter: Adapter<ViewHolder>?) {
 
         this.mAdapter = adapter!!
         mWrapRecyclerAdapter = if (adapter is WrapRecyclerAdapter) {
@@ -35,7 +35,7 @@ open class WrapRecyclerView : RecyclerView {
 
     }
 
-    fun addHeaderView(view: View) {
+    fun addHeaderView(view: View?) {
         mWrapRecyclerAdapter.addHeaderView(view)
     }
 

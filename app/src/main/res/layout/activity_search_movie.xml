@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context=".ui.SearchMovieActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.SearchMovieActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/x"
-                    android:src="@mipmap/ic_back"/>
+                    android:src="@mipmap/ic_back" />
 
             <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/search_name"
@@ -37,10 +37,10 @@
                     android:layout_marginRight="@dimen/x"
                     android:layout_weight="1"
                     android:background="@drawable/loop_text_bg"
-                    android:drawableLeft="@mipmap/ic_search"
+                    android:drawableStart="@mipmap/ic_search"
                     android:gravity="center_vertical"
                     android:textColor="@color/color_black"
-                    android:textSize="@dimen/font_middle"/>
+                    android:textSize="@dimen/font_middle" />
 
             <TextView
 
@@ -51,34 +51,34 @@
                     android:padding="@dimen/x"
                     android:text="搜索"
                     android:textColor="@color/color_white"
-                    android:textSize="@dimen/font_middle"/>
+                    android:textSize="@dimen/font_middle" />
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <TextView
-            android:padding="@dimen/x"
-            android:textSize="@dimen/font_middle"
-            android:text="@string/search_history"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x"
+            android:text="@string/search_history"
+            android:textSize="@dimen/font_middle" />
 
     <com.steven.movieapp.widget.tag.TagLayout
             android:id="@+id/tag"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     <View
-            android:layout_margin="@dimen/x"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/color_line"/>
+            android:layout_margin="@dimen/x"
+            android:background="@color/color_line" />
 
     <com.steven.movieapp.widget.refreshLoad.LoadRefreshRecyclerView
             android:id="@+id/rv_movies"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-    <include layout="@layout/load_view"/>
+    <include layout="@layout/load_view" />
 
 </LinearLayout>

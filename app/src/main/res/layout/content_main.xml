@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -31,7 +30,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/loop_text_bg"
                     android:padding="@dimen/x"
-                    tools:ignore="RtlHardcoded"/>
+                    tools:ignore="RtlHardcoded" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -44,16 +43,17 @@
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/colorAccent"
                 app:tabTextAppearance="@style/TabLayoutTextAppearance"
-                app:tabTextColor="@color/color_black"/>
+                app:tabTextColor="@color/color_black" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.viewpager.widget.ViewPager
+
+    <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:ignore="PrivateResource"/>
+            tools:ignore="RtlHardcoded" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -61,6 +61,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_dialog_email"/>
+            app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

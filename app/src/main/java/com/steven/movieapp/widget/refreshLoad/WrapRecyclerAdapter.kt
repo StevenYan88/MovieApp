@@ -75,10 +75,12 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
 
     private fun isHeaderPosition(position: Int): Boolean = position < mHeaderViews.size()
 
-    private fun isFooterPosition(position: Int): Boolean = position >= mHeaderViews.size() + adapter.itemCount
+    private fun isFooterPosition(position: Int): Boolean =
+        position >= mHeaderViews.size() + adapter.itemCount
 
 
-    fun addHeaderView(view: View) {
+    fun addHeaderView(view: View?) {
+        if (view == null) return
         val position = mHeaderViews.indexOfValue(view)
         if (position < 0) {
             mHeaderViews.put(BASE_ITEM_TYPE_HEADER++, view)
@@ -120,7 +122,8 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
             val layoutManager = recyclerView.layoutManager as GridLayoutManager
             layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
-                    val isHeaderOrFooter: Boolean = isHeaderPosition(position) || isFooterPosition(position)
+                    val isHeaderOrFooter: Boolean =
+                        isHeaderPosition(position) || isFooterPosition(position)
                     return if (isHeaderOrFooter) layoutManager.spanCount else 1
                 }
             }

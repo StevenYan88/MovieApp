@@ -1,4 +1,4 @@
-package com.steven.movieapp.db
+package com.steven.movieapp.bean
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,9 +10,8 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "histories")
 data class History(
+    @PrimaryKey
     val name: String
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
-}
+)
+
 

@@ -28,7 +28,7 @@ class PhotosAdapter(context: Context, layoutId: Int, data: List<Photo>) :
         }
         layoutParams.height = height
         iv.layoutParams = layoutParams
-        holder.setImage(R.id.iv_actor, item.image)
+        item.image?.let { holder.setImage(R.id.iv_actor, it) }
     }
 
 }

@@ -2,12 +2,17 @@ package com.steven.movieapp.ui
 
 import android.content.Intent
 import android.view.View
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.steven.movieapp.R
 import com.steven.movieapp.adapter.PhotosAdapter
 import com.steven.movieapp.base.BaseActivity
 import com.steven.movieapp.bean.Photo
+import com.steven.movieapp.repository.MovieRepository
+import com.steven.movieapp.viewmodel.MovieViewModel
+import com.steven.movieapp.viewmodel.MovieViewModelFactory
 import com.steven.movieapp.widget.StatusView
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
 import com.steven.movieapp.widget.refreshLoad.DefaultLoadViewCreator
@@ -16,14 +21,17 @@ import com.steven.movieapp.widget.refreshLoad.LoadRefreshRecyclerView
 import com.steven.movieapp.widget.refreshLoad.RefreshRecyclerView
 import kotlinx.android.synthetic.main.activity_photos.*
 
-class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, LoadRefreshRecyclerView.OnLoadListener,
-        OnItemClickListener<Photo> {
+class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener,
+    LoadRefreshRecyclerView.OnLoadListener,
+    OnItemClickListener<Photo> {
+
+    private val movieViewModel: MovieViewModel by viewModels { MovieViewModelFactory(MovieRepository.getInstance()) }
+
     private val celebrityId: String by lazy {
-        intent.getStringExtra("celebrity_id")
+        intent.getStringExtra("celebrity_id") ?: ""
     }
     private val name: String by lazy {
-        intent.getStringExtra("name")
-
+        intent.getStringExtra("name") ?: ""
     }
     private var start: Int = 0
     private var count: Int = 20
@@ -38,7 +46,6 @@ class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, Lo
     override fun getLayoutId(): Int = R.layout.activity_photos
 
     override fun initView() {
-
         sv.showLoadView()
         sv.setOnClickListener(object : StatusView.OnClickListener {
             override fun onClick() {
@@ -63,13 +70,11 @@ class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, Lo
     }
 
     override fun onRequestData() {
-        movieViewModel.getCelebrityPhotos(celebrityId, start, count).observe(this, Observer {
-            if (it == null && this.photos.isEmpty()) {
-                sv.showErrorView()
-                return@Observer
+        movieViewModel.getCelebrityPhotos(celebrityId, start, count)
+        movieViewModel.photosLiveData.observe(this, Observer {
+            if (it != null) {
+                showPhotos(it.photos)
             }
-            sv.removeAllViews()
-            showPhotos(it.photos)
         })
     }
 
@@ -93,13 +98,11 @@ class PhotosActivity : BaseActivity(), RefreshRecyclerView.OnRefreshListener, Lo
 
     override fun onLoad() {
         start += 20
-        movieViewModel.getCelebrityPhotos(celebrityId, start, count).observe(this, Observer {
-            showPhotos(it.photos)
-        })
+        movieViewModel.getCelebrityPhotos(celebrityId, start, count)
     }
 
     override fun onRefresh() {
-        onRequestData()
+        movieViewModel.getCelebrityPhotos(celebrityId, start, count)
     }
 
     override fun onItemClick(view: View, position: Int, item: Photo) {

@@ -10,12 +10,12 @@ import android.os.Parcelable
  */
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 data class Photo(
-    val thumb: String,
-    val image: String,
-    val cover: String,
-    val alt: String,
-    val id: String,
-    val icon: String
+    val thumb: String?,
+    val image: String?,
+    val cover: String?,
+    val alt: String?,
+    val id: String?,
+    val icon: String?
 ) : Parcelable {
     constructor(source: Parcel) : this(
 

@@ -18,10 +18,10 @@ class PreviewPhotoActivity : BaseActivity(), DragPhotoView.OnExitListener {
 
 
     private val photoUrl by lazy {
-        intent.getStringExtra("photo_url")
+        intent.getStringExtra("photo_url")  ?: ""
     }
     private val name: String by lazy {
-        intent.getStringExtra("name")
+        intent.getStringExtra("name")  ?: ""
     }
 
     override fun getLayoutId(): Int = R.layout.activity_preview_photo

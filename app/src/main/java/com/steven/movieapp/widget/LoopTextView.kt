@@ -22,31 +22,31 @@ import com.steven.movieapp.R
  */
 class LoopTextView : FrameLayout {
     private lateinit var textList: ArrayList<String>
-    private lateinit var anim_out: Animation
-    private lateinit var anim_in: Animation
-    private lateinit var tv_out: TextView
-    private lateinit var tv_in: TextView
+    private lateinit var animOut: Animation
+    private lateinit var animIn: Animation
+    private lateinit var tvOut: TextView
+    private lateinit var tvIn: TextView
     private var currentIndex: Int = 0
 //    private var lastTimeMillis: Long = 0
 
-    constructor(context: Context?) : this(context, null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         initFrame()
         initAnimation()
     }
 
     private fun initFrame() {
-        tv_out = newTextView()
-        tv_in = newTextView()
-        addView(tv_out)
-        addView(tv_in)
+        tvOut = newTextView()
+        tvIn = newTextView()
+        addView(tvOut)
+        addView(tvIn)
     }
 
     private fun initAnimation() {
-        anim_out = newAnimation(0f, -1f)
-        anim_in = newAnimation(1f, 0f)
-        anim_in.setAnimationListener(object : Animation.AnimationListener {
+        animOut = newAnimation(0f, -1f)
+        animIn = newAnimation(1f, 0f)
+        animIn.setAnimationListener(object : Animation.AnimationListener {
 
             override fun onAnimationStart(animation: Animation) {
 
@@ -86,9 +86,7 @@ class LoopTextView : FrameLayout {
 
     private fun newTextView(): TextView {
         val textView = TextView(context)
-        val layoutParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT, Gravity.CENTER_VERTICAL
-        )
+        val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, Gravity.CENTER_VERTICAL)
         textView.layoutParams = layoutParams
         textView.ellipsize = TextUtils.TruncateAt.END
         textView.compoundDrawablePadding = 8
@@ -103,15 +101,15 @@ class LoopTextView : FrameLayout {
 
     private fun updateTextAndPlayAnimation() {
         if (this.currentIndex % 2 == 0) {
-            updateText(tv_out)
-            tv_in.startAnimation(anim_out)
-            tv_out.startAnimation(anim_in)
-            this.bringChildToFront(tv_in)
+            updateText(tvOut)
+            tvIn.startAnimation(animOut)
+            tvOut.startAnimation(animIn)
+            this.bringChildToFront(tvIn)
         } else {
-            updateText(tv_in)
-            tv_out.startAnimation(anim_out)
-            tv_in.startAnimation(anim_in)
-            this.bringChildToFront(tv_out)
+            updateText(tvIn)
+            tvOut.startAnimation(animOut)
+            tvIn.startAnimation(animIn)
+            this.bringChildToFront(tvOut)
         }
     }
 
@@ -126,7 +124,7 @@ class LoopTextView : FrameLayout {
     fun setTextList(textList: ArrayList<String>) {
         this.textList = textList
         currentIndex = 0
-        updateText(tv_out)
+        updateText(tvOut)
         updateTextAndPlayAnimation()
     }
 
@@ -155,7 +153,7 @@ class LoopTextView : FrameLayout {
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        anim_in.cancel()
-        anim_out.cancel()
+        animIn.cancel()
+        animOut.cancel()
     }
 }

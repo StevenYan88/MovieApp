@@ -6,89 +6,86 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.steven.movieapp.R
-import com.steven.movieapp.adapter.MovieAdapter
+import com.steven.movieapp.adapter.WeeklyAdapter
 import com.steven.movieapp.bean.Movie
+import com.steven.movieapp.bean.Weekly
 import com.steven.movieapp.repository.MovieRepository
 import com.steven.movieapp.viewmodel.MovieViewModel
 import com.steven.movieapp.viewmodel.MovieViewModelFactory
 import com.steven.movieapp.widget.LoopTextView
 import com.steven.movieapp.widget.StatusView
 import com.steven.movieapp.widget.recyclerview.OnItemClickListener
-import com.steven.movieapp.widget.refreshLoad.DefaultLoadViewCreator
 import com.steven.movieapp.widget.refreshLoad.DefaultRefreshViewCreator
-import com.steven.movieapp.widget.refreshLoad.LoadRefreshRecyclerView
 import com.steven.movieapp.widget.refreshLoad.RefreshRecyclerView
-import kotlinx.android.synthetic.main.fragment_thread_movie.*
-import kotlinx.android.synthetic.main.fragment_top_movie.*
-import kotlinx.android.synthetic.main.fragment_top_movie.rv_movies
-import kotlinx.android.synthetic.main.fragment_top_movie.sv_state
+import kotlinx.android.synthetic.main.fragment_movie_us.*
+
 
 /**
  * @author: yanzhiwen
- * @create: 2022/4/12 11:45
- * @description: 电影排行top250
- */
+ * @create: 2022/4/12 11:23
+ * @description:北美票房榜
+ *
+ * */
 
-class Top250MovieFragment : BaseFragment(), OnItemClickListener<Movie>,
-    RefreshRecyclerView.OnRefreshListener, LoadRefreshRecyclerView.OnLoadListener {
-
-    private var start: Int = 0
-    private var count: Int = 10
+class MovieUsFragment : BaseFragment(), OnItemClickListener<Weekly>,
+    RefreshRecyclerView.OnRefreshListener {
 
     private val movieViewModel: MovieViewModel by viewModels { MovieViewModelFactory(MovieRepository.getInstance()) }
 
-    private var movies = arrayListOf<Movie>()
+    private var movies = arrayListOf<Weekly>()
 
-    private val adapter: MovieAdapter by lazy {
-        MovieAdapter(requireContext(), R.layout.movie_list_item, movies)
+    private val adapter: WeeklyAdapter by lazy {
+        WeeklyAdapter(requireContext(), R.layout.movie_list_item, movies)
     }
-
     companion object {
         fun newInstance(): Fragment {
-            return Top250MovieFragment()
+            return MovieUsFragment()
         }
     }
 
-    override fun getLayoutId() = R.layout.fragment_top_movie
+    override fun getLayoutId() = R.layout.fragment_movie_us
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sv_state.showLoadView()
-        movieViewModel.getTop250Movie(start, count)
+        movieViewModel.getUsMovieBox()
         sv_state.setOnClickListener(object : StatusView.OnClickListener {
             override fun onClick() {
                 sv_state.showLoadView()
             }
         })
         rv_movies.addRefreshViewCreator(DefaultRefreshViewCreator())
-        rv_movies.addLoadViewCreator(DefaultLoadViewCreator())
         rv_movies.adapter = adapter
         rv_movies.setOnRefreshListener(this)
         adapter.setOnItemClickListener(this)
 
-        movieViewModel.topMovieLiveData.observe(this, Observer {
+        movieViewModel.weeklyLiveData.observe(this, Observer {
             if (!it.subjects.isNullOrEmpty()) {
                 sv_state.removeAllViews()
                 rv_movies.onStopRefresh()
                 movies.addAll(it.subjects)
                 adapter.notifyDataSetChanged()
+                setupLoopMovieName(it.subjects)
             } else {
 
             }
         })
-
-        movieViewModel.errorLiveData.observe(this, Observer {
-            sv_state.showErrorView()
-        })
     }
 
-    override fun onItemClick(view: View, position: Int, item: Movie) {
+    override fun onItemClick(view: View, position: Int, item: Weekly) {
     }
 
     override fun onRefresh() {
-        movieViewModel.getTop250Movie(0, 10)
+        movieViewModel.getUsMovieBox()
     }
 
-    override fun onLoad() {
-        start += 10
+
+    private fun setupLoopMovieName(movies: List<Weekly>) {
+        val textList = arrayListOf<String>()
+        movies.forEach { textList.add(it.subject.title + " | " + it.subject.originalTitle) }
+        activity?.apply {
+            findViewById<LoopTextView>(R.id.loop_movie_name).setTextList(textList)
+        }
     }
 }

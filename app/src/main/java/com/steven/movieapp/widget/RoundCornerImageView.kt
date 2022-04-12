@@ -63,10 +63,10 @@ class RoundCornerImageView : AppCompatImageView {
             requestLayout()
         }
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        val attributes = context?.obtainStyledAttributes(attrs, R.styleable.RoundCornerImageView)
-        attributes?.apply {
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.RoundCornerImageView)
+        attributes.apply {
             _borderWidth = getDimension(R.styleable.RoundCornerImageView_borderWidth, 0f)
             _borderColor = getColor(R.styleable.RoundCornerImageView_borderColor, Color.TRANSPARENT)
             _radius = getDimension(R.styleable.RoundCornerImageView_radius, 0f)
@@ -74,10 +74,10 @@ class RoundCornerImageView : AppCompatImageView {
             innerRadius = _radius - _borderWidth / 2f
             _ratio = getFloat(R.styleable.RoundCornerImageView_ratio, 0f)
         }
-        attributes?.recycle()
+        attributes.recycle()
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         if (_ratio != 0f) {

@@ -16,7 +16,7 @@ class ActorPhotosAdapter(context: Context, layoutId: Int, data: List<Photo>) :
 
 
     override fun convert(holder: BaseViewHolder, position: Int, item: Photo) {
-        holder.setImage(R.id.iv_actor, item.image)
+        item.image?.let { holder.setImage(R.id.iv_actor, it) }
     }
 
 }

@@ -1,9 +1,8 @@
 package com.steven.movieapp.repository
 
 import androidx.lifecycle.LiveData
-import com.steven.movieapp.db.History
-import com.steven.movieapp.db.HistoryDao
-import com.steven.movieapp.utils.AppExecutors
+import com.steven.movieapp.bean.History
+import com.steven.movieapp.dao.HistoryDao
 
 /**
  * Description:
@@ -15,23 +14,12 @@ class HistoryRepository private constructor(private val historyDao: HistoryDao) 
 
     fun getSearchHistory(): LiveData<List<History>> = historyDao.getSearchHistory()
 
-
-    fun saveHistory(history: History) {
-        AppExecutors.diskIO().execute {
-            historyDao.insertHistory(history)
-        }
-    }
-
-
-    fun getSearchHistoryByName(name: String): LiveData<History> = historyDao.getSearchHistoryByName(name)
+    suspend fun saveHistory(history: History) = historyDao.insertHistory(history)
 
     companion object {
 
-
-        //单例：双重枷锁
         @Volatile
         private var instance: HistoryRepository? = null
-
 
         fun getInstance(historyDao: HistoryDao): HistoryRepository {
             return instance ?: synchronized(this) {
