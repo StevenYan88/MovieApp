@@ -17,7 +17,12 @@ open class BaseViewModel : ViewModel() {
 
      val errorLiveData = SingleLiveData<Throwable>()
 
-
+     /**
+      * 利用协程处理网络请求，处理异步任务。
+      * block() 处理网络请求（Retrofit中对应的api接口方法）
+      * error() 处理网络请求发生错误
+      * complete() 网络请求完成之后调用
+      */
      fun launch(
           block: suspend () -> Unit,
           error: suspend (Throwable) -> Unit,
