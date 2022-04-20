@@ -20,16 +20,13 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
 
     private val mFooterViews: SparseArray<View> = SparseArray()
 
-
     companion object {
         private var BASE_ITEM_TYPE_HEADER: Int = 100
         private var BASE_ITEM_TYPE_FOOTER: Int = 200
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (isHeaderViewType(viewType)) {
-
             val headerView = mHeaderViews.get(viewType)
             return createHeaderFooterViewHolder(headerView)
         }
@@ -39,7 +36,6 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
         }
         return adapter.onCreateViewHolder(parent, viewType)
     }
-
 
     override fun getItemCount(): Int = adapter.itemCount + mHeaderViews.size() + mFooterViews.size()
 
@@ -77,7 +73,6 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
 
     private fun isFooterPosition(position: Int): Boolean =
         position >= mHeaderViews.size() + adapter.itemCount
-
 
     fun addHeaderView(view: View?) {
         if (view == null) return
@@ -140,7 +135,5 @@ class WrapRecyclerAdapter(private val adapter: RecyclerView.Adapter<RecyclerView
             if (isHeaderPosition(holder.layoutPosition) || isFooterPosition(holder.layoutPosition))
                 layoutParams.isFullSpan = true
         }
-
     }
-
 }

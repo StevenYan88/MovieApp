@@ -13,15 +13,14 @@ import android.view.View
  * Actor:Steven
  */
 open class RefreshRecyclerView : WrapRecyclerView {
-    private var mRefreshCreator: RefreshViewCreator? = null
-    private var mRefreshView: View? = null
-    private var mFingerDownY: Int = 0
-    private var mRefreshViewHeight: Int = 0
-    private val mDragIndex: Float = 0.35f
-    private var mCurrentDrag: Boolean = false
-    private var mCurrentRefreshStatus: Int =
-        REFRESH_STATUS_NORMAL
-    private var mListener: OnRefreshListener? = null
+    private var refreshViewCreator: RefreshViewCreator? = null
+    private var refreshView: View? = null
+    private var fingerDownY: Int = 0
+    private var refreshViewHeight: Int = 0
+    private val dragIndex: Float = 0.35f
+    private var currentDrag: Boolean = false
+    private var currentRefreshStatus: Int = REFRESH_STATUS_NORMAL
+    private var onRefreshListener: OnRefreshListener? = null
     private var isRefreshing = true
 
     companion object {
@@ -52,103 +51,91 @@ open class RefreshRecyclerView : WrapRecyclerView {
     }
 
     fun addRefreshViewCreator(refreshCreator: RefreshViewCreator) {
-        this.mRefreshCreator = refreshCreator
-        mRefreshView = mRefreshCreator?.getRefreshView(context, this)
+        this.refreshViewCreator = refreshCreator
+        refreshView = refreshViewCreator?.getRefreshView(context, this)
     }
 
     private fun addRefreshView() {
         val adapter = adapter
         if (adapter != null) {
-            addHeaderView(mRefreshView)
+            addHeaderView(refreshView)
         }
-
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         when (ev.action) {
             MotionEvent.ACTION_DOWN ->
-                mFingerDownY = ev.rawY.toInt()
-            MotionEvent.ACTION_UP -> if (mCurrentDrag) {
+                fingerDownY = ev.rawY.toInt()
+            MotionEvent.ACTION_UP -> if (currentDrag) {
                 restoreRefreshView()
             }
-
-
         }
         return super.dispatchTouchEvent(ev)
     }
 
     private fun restoreRefreshView() {
-        if (mRefreshView == null) return
-        val currentTopMargin = (mRefreshView?.layoutParams as MarginLayoutParams).topMargin
-        var finalTopMargin = -mRefreshViewHeight + 1
-        if (mCurrentRefreshStatus == REFRESH_STATUS_LOOSEN_REFRESHING) {
+        if (refreshView == null) return
+        val currentTopMargin = (refreshView?.layoutParams as MarginLayoutParams).topMargin
+        var finalTopMargin = -refreshViewHeight + 1
+        if (currentRefreshStatus == REFRESH_STATUS_LOOSEN_REFRESHING) {
             finalTopMargin = 0
-            mCurrentRefreshStatus =
-                REFRESH_STATUS_REFRESHING
-            mRefreshCreator?.onRefreshing()
-
-            mListener?.apply {
+            currentRefreshStatus = REFRESH_STATUS_REFRESHING
+            refreshViewCreator?.onRefreshing()
+            onRefreshListener?.apply {
                 onRefresh()
             }
-
         }
         val distance = currentTopMargin - finalTopMargin
-
         val animator = ObjectAnimator.ofFloat(currentTopMargin.toFloat(), finalTopMargin.toFloat())
             .setDuration(distance.toLong())
         animator.addUpdateListener { animation ->
-            @Suppress("NAME_SHADOWING")
             val currentTooMargin = animation.animatedValue as Float
             setRefreshViewMarginTop(currentTooMargin.toInt())
         }
         animator.start()
-        mCurrentDrag = false
+        currentDrag = false
     }
-
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         super.onLayout(changed, l, t, r, b)
-        if (mRefreshViewHeight <= 0) {
-            mRefreshViewHeight = mRefreshView?.measuredHeight ?: 0
-            if (mRefreshViewHeight > 0) {
-                setRefreshViewMarginTop(-mRefreshViewHeight + 1)
+        if (refreshViewHeight <= 0) {
+            refreshViewHeight = refreshView?.measuredHeight ?: 0
+            if (refreshViewHeight > 0) {
+                setRefreshViewMarginTop(-refreshViewHeight + 1)
             }
         }
     }
-
 
     /**
      * 设置刷新topMargin
      */
     private fun setRefreshViewMarginTop(marginTop: Int) {
-        if (mRefreshView == null) return
+        if (refreshView == null) return
         var topMargin = marginTop
-        val params = mRefreshView?.layoutParams as MarginLayoutParams
-        if (topMargin < -mRefreshViewHeight + 1) {
-            topMargin = -mRefreshViewHeight + 1
+        val params = refreshView?.layoutParams as MarginLayoutParams
+        if (topMargin < -refreshViewHeight + 1) {
+            topMargin = -refreshViewHeight + 1
         }
         params.topMargin = topMargin
-        mRefreshView?.layoutParams = params
+        refreshView?.layoutParams = params
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(e: MotionEvent): Boolean {
         when (e.action) {
             MotionEvent.ACTION_MOVE -> {
-                if (canScrollUp() || mCurrentRefreshStatus == REFRESH_STATUS_REFRESHING) {
+                if (canScrollUp() || currentRefreshStatus == REFRESH_STATUS_REFRESHING) {
                     isRefreshing = false
                     return super.onTouchEvent(e)
                 }
-                if (mCurrentDrag) scrollToPosition(0)
-
-                val distanceY = ((e.rawY - mFingerDownY) * mDragIndex).toInt()
+                if (currentDrag) scrollToPosition(0)
+                val distanceY = ((e.rawY - fingerDownY) * dragIndex).toInt()
                 if (distanceY > 0) {
-                    val marginTop = distanceY - mRefreshViewHeight
+                    val marginTop = distanceY - refreshViewHeight
                     setRefreshViewMarginTop(marginTop)
                     updateRefreshStatus(distanceY)
                     isRefreshing = true
-                    mCurrentDrag = true
+                    currentDrag = true
                     return false
                 }
             }
@@ -157,12 +144,12 @@ open class RefreshRecyclerView : WrapRecyclerView {
     }
 
     private fun updateRefreshStatus(distanceY: Int) {
-        mCurrentRefreshStatus = when {
+        currentRefreshStatus = when {
             distanceY <= 0 -> REFRESH_STATUS_NORMAL
-            distanceY <= mRefreshViewHeight -> REFRESH_STATUS_PULL_DOWN_REFRESH
+            distanceY <= refreshViewHeight -> REFRESH_STATUS_PULL_DOWN_REFRESH
             else -> REFRESH_STATUS_LOOSEN_REFRESHING
         }
-        mRefreshCreator?.onPull(distanceY, mRefreshViewHeight, mCurrentRefreshStatus)
+        refreshViewCreator?.onPull(distanceY, refreshViewHeight, currentRefreshStatus)
     }
 
     private fun canScrollUp(): Boolean {
@@ -170,21 +157,19 @@ open class RefreshRecyclerView : WrapRecyclerView {
     }
 
     fun onStopRefresh() {
-        mCurrentRefreshStatus =
-            REFRESH_STATUS_NORMAL
+        currentRefreshStatus = REFRESH_STATUS_NORMAL
         restoreRefreshView()
-        mRefreshCreator?.onStopRefresh()
+        refreshViewCreator?.onStopRefresh()
     }
 
     fun setOnRefreshListener(listener: OnRefreshListener) {
-        this.mListener = listener
+        this.onRefreshListener = listener
     }
+
+    fun isRefreshing(): Boolean = isRefreshing
+
 
     interface OnRefreshListener {
         fun onRefresh()
-    }
-
-    fun isRefreshing(): Boolean {
-        return isRefreshing
     }
 }

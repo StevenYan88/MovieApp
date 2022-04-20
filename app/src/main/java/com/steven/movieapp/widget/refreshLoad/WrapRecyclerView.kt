@@ -18,12 +18,15 @@ open class WrapRecyclerView : RecyclerView {
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
-
+    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    )
 
     override fun setAdapter(adapter: Adapter<ViewHolder>?) {
-
-        this.mAdapter = adapter!!
+        if (adapter == null) return
+        this.mAdapter = adapter
         mWrapRecyclerAdapter = if (adapter is WrapRecyclerAdapter) {
             adapter
         } else {
@@ -32,22 +35,14 @@ open class WrapRecyclerView : RecyclerView {
         super.setAdapter(mWrapRecyclerAdapter)
         //解决GridLayout添加头部和底部要占据一行
         mWrapRecyclerAdapter.adjustSpanSize(this)
-
     }
 
-    fun addHeaderView(view: View?) {
-        mWrapRecyclerAdapter.addHeaderView(view)
-    }
+    fun addHeaderView(view: View?) = mWrapRecyclerAdapter.addHeaderView(view)
 
-    fun addFooterView(view: View) {
-        mWrapRecyclerAdapter.addFooterView(view)
-    }
+    fun addFooterView(view: View) = mWrapRecyclerAdapter.addFooterView(view)
 
-    fun removeHeaderView(view: View) {
-        mWrapRecyclerAdapter.removeHeaderView(view)
-    }
+    fun removeHeaderView(view: View) = mWrapRecyclerAdapter.removeHeaderView(view)
 
-    fun removeFooterView(view: View) {
-        mWrapRecyclerAdapter.removeFooterView(view)
-    }
+    fun removeFooterView(view: View) = mWrapRecyclerAdapter.removeFooterView(view)
+
 }

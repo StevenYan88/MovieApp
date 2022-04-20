@@ -19,7 +19,8 @@ class DefaultLoadViewCreator : LoadViewCreator() {
     private lateinit var mLoadTv: TextView
 
     override fun getLoadView(context: Context, parent: ViewGroup): View {
-        val refreshView = LayoutInflater.from(context).inflate(R.layout.load_footer_view, parent, false)
+        val refreshView =
+            LayoutInflater.from(context).inflate(R.layout.load_footer_view, parent, false)
         mLoadTv = refreshView.findViewById(R.id.load_tv) as TextView
         mIvRefresh = refreshView.findViewById(R.id.iv_refresh)
         return refreshView
@@ -37,7 +38,14 @@ class DefaultLoadViewCreator : LoadViewCreator() {
     }
 
     override fun onLoading() {
-        val animation = RotateAnimation(0f, 720f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        val animation = RotateAnimation(
+            0f,
+            720f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f
+        )
         animation.repeatCount = -1
         animation.duration = 1288
         mIvRefresh.startAnimation(animation)
@@ -47,6 +55,5 @@ class DefaultLoadViewCreator : LoadViewCreator() {
         mIvRefresh.rotation = 0f
         mIvRefresh.clearAnimation()
         mLoadTv.text = "上拉加载更多"
-
     }
 }

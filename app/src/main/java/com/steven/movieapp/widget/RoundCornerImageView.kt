@@ -19,8 +19,8 @@ import com.steven.movieapp.R
  */
 
 class RoundCornerImageView : AppCompatImageView {
-    private var _borderWidth = 0f
-    private var _borderColor = 0
+    private var width = 0f
+    private var color = 0
     //radius of corner
     private var _radius = 0f
     private var innerRadius = 0f
@@ -37,15 +37,15 @@ class RoundCornerImageView : AppCompatImageView {
     private var _matrix: Matrix? = Matrix()
 
     private var borderWidth: Float
-        get() = _borderWidth
+        get() = width
         set(value) {
-            _borderWidth = value
+            width = value
             invalidate()
         }
     var borderColor: Int
-        get() = _borderColor
+        get() = color
         set(value) {
-            _borderColor = value
+            color = value
             invalidate()
         }
     var radius: Float
@@ -53,7 +53,7 @@ class RoundCornerImageView : AppCompatImageView {
         set(value) {
             _radius = value
             //计算边框内圆角半径
-            innerRadius = _radius - _borderWidth / 2f
+            innerRadius = _radius - width / 2f
             invalidate()
         }
     var ratio: Float
@@ -67,11 +67,11 @@ class RoundCornerImageView : AppCompatImageView {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.RoundCornerImageView)
         attributes.apply {
-            _borderWidth = getDimension(R.styleable.RoundCornerImageView_borderWidth, 0f)
-            _borderColor = getColor(R.styleable.RoundCornerImageView_borderColor, Color.TRANSPARENT)
+            width = getDimension(R.styleable.RoundCornerImageView_borderWidth, 0f)
+            color = getColor(R.styleable.RoundCornerImageView_borderColor, Color.TRANSPARENT)
             _radius = getDimension(R.styleable.RoundCornerImageView_radius, 0f)
             //计算边框内圆角半径
-            innerRadius = _radius - _borderWidth / 2f
+            innerRadius = _radius - width / 2f
             _ratio = getFloat(R.styleable.RoundCornerImageView_ratio, 0f)
         }
         attributes.recycle()
@@ -91,14 +91,14 @@ class RoundCornerImageView : AppCompatImageView {
 
     override fun onDraw(canvas: Canvas) {
         drawable ?: return
-        if (_borderWidth == 0f && _radius == 0f) {
+        if (width == 0f && _radius == 0f) {
             super.onDraw(canvas)
         } else {
-            borderPaint.color = _borderColor
-            borderPaint.strokeWidth = _borderWidth
+            borderPaint.color = color
+            borderPaint.strokeWidth = width
             imagePaint.shader = generateBitmapShader(drawable)
             canvas.drawRoundRect(innerRectF, innerRadius, innerRadius, imagePaint)
-            if (_borderWidth > 0f) {
+            if (width > 0f) {
                 canvas.drawRoundRect(rectF, _radius, _radius, borderPaint)
             }
         }
@@ -106,8 +106,8 @@ class RoundCornerImageView : AppCompatImageView {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        rectF = RectF(_borderWidth / 2f, _borderWidth / 2f, width - _borderWidth / 2f, height - _borderWidth / 2f)
-        innerRectF = RectF(_borderWidth, _borderWidth, width - _borderWidth, height - _borderWidth)
+        rectF = RectF(width / 2f, width / 2f, width - width / 2f, height - width / 2f)
+        innerRectF = RectF(width, width, width - width, height - width)
     }
 
     private fun Float.round(): Int {
